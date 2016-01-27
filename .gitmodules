@@ -1,0 +1,15 @@
+[submodule "repository"]
+	path = repository
+	url = git@github.com:ngspipes/repository.git
+[submodule "engine"]
+	path = engine
+	url = git@github.com:ngspipes/engine.git
+[submodule "editor"]
+	path = editor
+	url = git@github.com:ngspipes/editor.git
+[submodule "dsl"]
+	path = dsl
+	url = git@github.com:ngspipes/dsl.git
+[submodule "json-java/src/main/java/org/json"]
+	path = json-java/src/main/java/org/json
+	url = https://github.com/stleary/JSON-java.git

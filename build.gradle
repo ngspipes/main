@@ -1,0 +1,76 @@
+
+subprojects {
+    apply plugin: 'java'
+    group = 'pt.isel.ngspipes'
+    version = '1.0'
+}
+
+project(':dsl') {
+    dependencies {
+        compile project(':repository')
+    }
+}
+
+project(':engine') {
+	dependencies {
+        compile project(':jfx-components')
+        compile project(':repository')
+        compile project(':dsl')
+    }
+}
+
+/*
+project(':engine-ui') {
+	dependencies {
+        compile project(':repository')
+        compile project(':engine-core')
+        compile project(':jfx-components')
+    }
+}
+*/
+
+project(':jfx-workflows') {
+    dependencies {  
+        compile project(':jfx-components')
+    }
+}
+
+project(':editor') {
+    dependencies {
+        compile project(':repository')
+        compile project(':dsl')    
+        compile project(':jfx-components')
+        compile project(':jfx-workflows')
+    }
+}
+
+/*
+def engineProjects = [':dsl',':repository',':engine-core',':engine-ui',':jfx-components',':json-java']
+
+task engineJar( type: Jar , dependsOn: engineProjects.collect{ it+":compileJava"}) {
+    baseName = 'build/ngsengine-1.0'
+    from files(engineProjects.collect{ project(it).sourceSets.main.output })
+    from('engine-core/src/main/java/') {
+        include 'resources/'
+    }
+
+    manifest {
+        attributes 'Main-Class': 'ngspipesengine.NGSPipesEngineApplication'
+        attributes 'Class-Path': 'antlr-4.5-complete'
+    }
+}
+
+def editorProjects = [':dsl',':repository',':editor',':jfx-components',':jfx-workflows',':json-java']
+
+task editorJar( type: Jar , dependsOn: editorProjects.collect{ it+":compileJava"}) {
+    baseName = 'build/editor-1.0'
+    from files(editorProjects.collect{ project(it).sourceSets.main.output })
+    from('editor/src/main/java/') {
+        include 'resources/'
+    }
+
+    manifest {
+        attributes 'Main-Class': 'editor.NGSPipesEditor'
+    }
+}
+*/
