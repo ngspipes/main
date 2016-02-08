@@ -28,7 +28,7 @@ project(':engine') {
 }
 
 project(':jfx-workflows') {
-    dependencies {  
+    dependencies {
         compile project(':jfx-components')
     }
 }
@@ -36,7 +36,7 @@ project(':jfx-workflows') {
 project(':editor') {
     dependencies {
         compile project(':repository')
-        compile project(':dsl')    
+        compile project(':dsl')
         compile project(':jfx-components')
         compile project(':jfx-workflows')
     }
@@ -56,3 +56,15 @@ task editorJar( type: Jar , dependsOn: editorProjects.collect{ it+":compileJava"
     }
 }
 
+def engineProjects = [':dsl',':repository',':engine',':jfx-components',':jfx-workflows',':json-java']
+task engineJar( type: Jar , dependsOn: engineProjects.collect{ it+":compileJava"}) {
+    baseName = 'build/engine-1.0'
+    from files(engineProjects.collect{ project(it).sourceSets.main.output })
+    from('engine/src/main/java/') {
+        include 'resources/'
+    }
+
+    manifest {
+        attributes 'Main-Class': 'ngspipesengine.NGSPipesEngineApplication'
+    }
+}
