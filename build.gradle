@@ -17,14 +17,6 @@ project(':engine') {
         compile project(':repository')
         compile project(':dsl')
     }
-    copy {
-        from project(':dsl').file('build/libs/dsl-1.0.jar')
-        into file('src/main/java/resources/')
-    }
-    copy {
-        from project(':repository').file('build/libs/repository-1.0.jar')
-        into file('src/main/java/resources/')
-    }
 }
 
 project(':jfx-workflows') {
