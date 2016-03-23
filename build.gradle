@@ -57,6 +57,6 @@ task engineJar( type: Jar , dependsOn: engineProjects.collect{ it+":compileJava"
     }
 
     manifest {
-        attributes 'Main-Class': 'ngspipesengine.NGSPipesEngineApplication'
+        attributes 'Main-Class': 'ngspipesengine.presentation.ui.NGSPipesEngineApplication'
     }
 }
