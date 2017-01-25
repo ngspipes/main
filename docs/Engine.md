@@ -323,10 +323,3 @@ To build the _NGSPipes engine_ follow these steps:
 
 
 
-
-###  Appendix: Libraries dependencies
-
-The _NGSPipes engine_ is dependent of the following libraries:
-
-* JSON (JSON-java)[http://www.json.org/java/index.html]
-* ANTLR - ANother Tool for Language Recognition (ANTLR-complete)[http://www.antlr.org/download.html]
