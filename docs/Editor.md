@@ -1,32 +1,11 @@
-## NGSPipes Editor
+# NGSPipes Editor
 
 The NGSPipes Editor is a user-friendly editor for graphically define pipelines. Using this editor is very simple to define each processing step of the pipeline (i.e. a command) as well as the data to be used at each step (i.e., arguments). 
 
 The following sections show how to use the editor. 
 
-###Index
 
-1. [Download NGSPipes Editor](#download)
-
-2. [Execute NGSPipes Editor](#execute)
-
-3. [NGSPipes Editor Sections](#head3)
-
-4. [Select the tools repository](#head4)
-
-5. [Create a new pipeline](#head5)
-
-6. [Generate the final pipeline version to execute](#head6)
-
-7. [Load an existing pipeline](#head7)
-
-8. [Multiple loaded pipelines](#head8)
-
-9. [Error Reporting](#head9)
-
-10. [Multiple inputs] (#head10)
-
-###<a name="download"></a> 1. Download NGSPipes Editor
+## Download NGSPipes Editor
 
 
 The NGSPipes Editor is a Java Application. To deploy this it in your system you need:
@@ -35,7 +14,7 @@ The NGSPipes Editor is a Java Application. To deploy this it in your system you 
 
 Download the editor from [here](https://github.com/ngspipes/editor/releases).
 
-###<a name="execute"></a> 2. Execute NGSPipes Editor
+## Execute NGSPipes Editor
 
 To run the editor, and uncompress the downloaded file. Then
 you should have the following file tree:
@@ -89,7 +68,7 @@ Then select the button "Open anyway"
 In the following sections it will be explained how to use the editor. 
 Moreover, in the editor's menu, selecting `help` and then the menu item `about`, it is possible to find some tutorial videos to help to use NGSPipes Editor.
 
-###<a name="head3"></a> 3. NGSPipes Editor Sections
+## NGSPipes Editor Sections
 
 When defining a new pipeline (we will explain how to define a new pipeline in the Section [5](#head5)),  the editor environment will appear similar to one of Figures 5 and 6 (it depends on the edition that is being performed). 
 
@@ -127,7 +106,7 @@ More specifically,
 * `Generate All` button - Generate all the files with extension `.pipes` for all the active pipelines. For each pipeline it is applied the action of the `Generate` button. 
 
 
-###<a name="head4"></a> 4. Select the tools repository
+## Select the tools repository
 
 When the Editor starts, it loads a local repository that is included within the tool. However, user can select other repository, either local or remote. To select other repository, go to the menu `Repository` and select `Change repository`.
 In the version 1 of the Editor, there are four types that are supported, as depicted in Figure [8](#fig8).
@@ -158,7 +137,7 @@ In the **repository section**, the user may explore all the tools that are avail
 
 The other sections, namely the **pipeline** and **command** sections will be detailed in section [5](#head5).
 
-###<a name="head5"></a> 5. Creating a new Pipeline
+## Creating a new Pipeline
 
 In order to create a new pipeline, after selecting the ` tools' repository`, please select the button with a plus (in the utilities section) or go to the menu `File` and select the option `new`.
 
@@ -216,17 +195,17 @@ the user can observe in the _order_ panel one of the possible inferred orders of
 
 Moreover, in the editor's menu, selecting `help` and then the menu item `about`, it is possible to find some tutorial videos to help to use NGSPipes Editor.
 
-###<a name="head6"></a> 6. Generate the final pipeline version to execute
+## Generate the final pipeline version to execute
 
 As mentioned before, creating a new pipeline generates a file with extension `.wf` and with the name chosen by the user. This file keeps all information of a pipeline within the editor, not only the commands as well as its visual positions.
 
 However, if the user wants to execute the pipeline in the NGSPipes Engine (https://github.com/ngspipes/engine/wiki), it is necessary to produce a file with extension `.pipes`. This file is written using the NGSPipes language (https://github.com/ngspipes/dsl/wiki) and thus does not have visual information. For producing the file with extension `.pipes` it is necessary to select the generate button or go to `File -> Generate pipeline`.
 
-###<a name="head7"></a> 7. Loading an existing pipeline
+## Loading an existing pipeline
 
 To load an existing pipeline, it is necessary to go to `File -> Open` and choose a pipeline file (with extension `.wf`) or select the open button.
 
-###<a name="head8"></a> 8. Multiple loaded pipelines
+## Multiple loaded pipelines
 
 It is possible to have multiple loaded pipelines, but just one is active.
 
@@ -234,7 +213,7 @@ It is possible to have multiple loaded pipelines, but just one is active.
 ![](https://cloud.githubusercontent.com/assets/1495120/12640476/0421eba4-c5a2-11e5-883b-8b0fe0edc1e5.png)
 
 
-###<a name="head9"></a> 9. Error Reporting
+## Error Reporting
 
 Each argument of a command of a given tool has a type and may be or not optional. The required arguments (not optional)
 appears in a red box.
@@ -248,7 +227,7 @@ generate an error message to report that situation, when generating the pipeline
 ![](https://cloud.githubusercontent.com/assets/1495120/19511108/c28c0c1c-95dd-11e6-8b65-47b31f0e193e.png)
 
 
-###<a name="head10"></a> 10. Multiple inputs
+## Multiple inputs
 
 The tools can produce multiple outputs. These tools also might require multiple inputs coming from different tools or the same tool. When the multiple inputs are from the same tool, NGSPipes supports it by adding a numbered label on the arrow.
 This functionality is depicted in the following figure:

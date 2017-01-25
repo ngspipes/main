@@ -6,28 +6,16 @@ The _NGSPipes engine_ is available in two flavors: a command line user interface
 
 The following sections shows how to run the engine. To build from source code please follow these [instructions](https://github.com/ngspipes/engine/wiki/Instructions-to-build-NGS-Pipes-Engine-from-source-code).
 
-## Index
 
-1. [Requirements to run the NGSPipes Engine](#requirements)
 
-2. [Install NGSPipes Engine](#install)
-
-3. [Run the NGSPipes Engine](#engine)
-
-   3.1. [Command line tool](#console)
-
-   3.2. [User Interface tool](#ui)
-
-   3.3. [Use case](#usecase)
-
-##  <a name="requirements"></a>1. Requirements to run the NGSPipes Engine
+## Requirements to run the NGSPipes Engine
 
 The machine where _NGSPipe engine_ is to be executed needs the following tools:
 
 * Java 8 Development Kit (http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html).
 * VirtualBox version >= 5.0 (https://www.virtualbox.org/wiki/Downloads). NOTE: Ensure the command `VBoxManage` can be found by the *command line* of your operating system.
 
-##  <a name="install"></a>2. Install NGSPipes Engine
+## Install NGSPipes Engine
 
 The _NGSPipes engine_ is made of a regular Java application and a VirtualBox's compliant image (also identified as _executor_). To deploy this in your system:
 
@@ -54,11 +42,11 @@ After these steps you should have the following file tree:
 
 ```
 
-##  <a name="engine"></a>3. Run the NGSPipes Engine
+##  Run the NGSPipes Engine
 
 The engine is provider as a console application or a graphical user interface application.
 
-### <a name="engine"></a>3.1 Engine command line tool
+###  Engine command line tool
 
 This is a regular Java application packed as a JAR file. To run, use the following command line at the working directory (`WD`):
 
@@ -111,7 +99,7 @@ The next figure shows an error report from the pipeline engine when executing a 
 [[EngineWrongArgument-CMD.png]]
 
 
-###  <a name="ui"></a>3.2. Engine GUI
+### Engine GUI
 
 The GUI version of the _NGSPipes Engine_ allows the same operations but using a graphical interface. When installed at a working directory (`WD`), the tool can be executed in the file explorer of your operating system:
 
@@ -188,7 +176,7 @@ The next figure shows an error related to a mismatch between the type of value u
 
 
 
-###  <a name="usecase"></a> 3.3. Use case
+###  Use case
 
 The following use case executes the pipeline described in the [DSL section](https://github.com/ngspipes/dsl/wiki#head3) using the console version of *NGSEngine*. The tools' repository used in the pipeline is [https://github.com/ngspipes/repository](https://github.com/ngspipes/repository). It has metadata for the tools *Trimmomatic*, *Velvet* and *Blast*.
 
