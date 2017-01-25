@@ -1,31 +1,9 @@
-##  NGSPipes DSL
+#  NGSPipes DSL
 
-The NGSPipes DSL is a domain specific language for describing pipelines. The syntax is described following a EBNF notation alike. As a programming language, it has some primitive building blocks with the expressiveness to define data processing, namely flow processing can be modeled as a direct acyclic graph. These primitives are defined by syntactic and semantic rules which describe their structure and meaning respectively. The primitives and the full syntax will be presented in Sections [1](#head1) and [2](#head2), respectively. For further explaining the expressiveness of each primitive, we incrementally introduce an example in Section [1](#head1). The full example can be seen in Section [3](#head3).
+The NGSPipes DSL is a domain specific language for describing pipelines. The syntax is described following a EBNF notation alike. As a programming language, it has some primitive building blocks with the expressiveness to define data processing, namely flow processing can be modeled as a direct acyclic graph. These primitives are defined by syntactic and semantic rules which describe their structure and meaning respectively. 
+The primitives and the full syntax will be presented in this section. For further explaining the expressiveness of each primitive, we also incrementally introduce an example in this section, as well as the full example.
 
-
-###Index
-1. [Primitives](#head1)
-
-  2.1. [Pipeline] (#head11)
-
-  2.2. [tool] (#head12)
-
-  2.3. [command] (#head13)
-
-  2.4. [argument](#head14)
-
-  2.5. [chain](#head15)
-
-2. [Grammar Syntax](#head2)
-
-3. [Full examples](#head3)
-
-3.1. [A pipeline used on epidemiological surveillance ] (#head31)
-
-3.2. [A pipeline used on ChiP-Seq analysis ] (#head32)
-      
-
-###<a name="head1"></a>1. Primitives
+## Primitives
 
 The primitives of NGSPipes DSL are  `Pipeline`, `tool`, `command`, `argument` and `chain`. In the folowing subsections it will be introduced the purpose of this primitives, ilustrating with some examples.
 
