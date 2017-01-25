@@ -1,10 +1,15 @@
-# NGSPipes main repository 
+# NGSPipes overview 
+
+**NGSPipes** is a framework to easily design and use pipelines, relying on state of the art cloud technologies to execute them without users need to configure, install and manage tools, servers and complex workflow management systems. 
+
+![Overview of NGSPipes System](_Images/arch-pictures.pdf)
+
 
 Mostly [gradle](http://gradle.org/) integration and references to other submodules.
 You can learn more about git submodules in 
 [git documentation](https://git-scm.com/book/en/v2/Git-Tools-Submodules). 
 
-To build _NGSPipes_ components we should start by cloning the [git repo](https://github.com/ngspipes/main) to a local working directory. Then the following commands will build all the components, [DSL](https://github.com/ngspipes/dsl/wiki), [Tools repository](https://github.com/ngspipes/tools/wiki) and the [Engine](https://github.com/ngspipes/engine/wiki) (both console and UI version):
+To build _NGSPipes_ components we should start by cloning the [git repo](https://github.com/ngspipes/main) to a local working directory. Then the following commands will build all the components, DSL, Tools' repository and the Engine (both console, standalone and cloud based versions and UI version):
    * `cd main`
    * `git submodule init`
    * `git submodule update`
