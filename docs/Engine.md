@@ -94,11 +94,12 @@ A small example with only manadatory arguments (a more complete description is p
 
 The next figure shows an error report from the pipeline engine when executing a pipeline where a mandatory argument is not specified.
 
-[[EngineMustUseArgument-CMD.png]]
+![image](_Images/EngineMustUseArgument-CMD.png)
+
 
 The next figure shows an error report from the pipeline engine when executing a pipeline where an argument is uses with a non-compatible value type, according to the tool's specification.
 
-[[EngineWrongArgument-CMD.png]]
+![image](_Images/EngineWrongArgument-CMD.png)
 
 
 #### User interface tool
@@ -115,9 +116,9 @@ The GUI version of the _NGSPipes Engine_ allows the same operations but using a 
 
 
 If you have OSX and you you prefer the double click version to run the editor, it may appears, only the first time after you double click it, the following info:
-<a name="fig1">
-![Figure 1](https://cloud.githubusercontent.com/assets/1495120/12481114/d82ec584-c03e-11e5-89b7-991b2b94a1b5.png)
-</a>
+
+![Figure1](_Images/engine_fig3.png)
+
 
 **Figure 1**
 
