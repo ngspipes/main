@@ -286,7 +286,7 @@ Pipeline "Github" "https://github.com/ngspipes/tools" {
 A visual representation of this pipeline is presented in the next figure. Moreover,
 in the figure is also possible to observe other execution orders that are feasible to execute this pipeline.
 
-![](https://cloud.githubusercontent.com/assets/1495120/19602904/eaab6556-97a6-11e6-9a0f-68b2b3cfbdae.png)
+![image](_Images/dsl_fig1.png)
 
 
 ### A pipeline used on ChiP-Seq analysis 
@@ -332,4 +332,4 @@ Pipeline "Github" "https://github.com/ngspipes/tools" {
 ```
 A visual representation of this pipeline is presented in the next figure.
 
-![](https://cloud.githubusercontent.com/assets/1495120/19603046/915c02ca-97a7-11e6-95e9-17a02a8158b0.png)
+![image](_Images/dsl_fig2.png)
