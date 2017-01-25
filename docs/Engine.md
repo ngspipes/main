@@ -1,4 +1,6 @@
-# NGSPipes engine
+# Engines
+
+## Engine for workstation
 
 The _NGSPipes engine_ starts with a pipeline description and transform it into a sequence of calls to the designated tools. After this, the _NGSPipes engine_ automatically configures and executes each tool in isolation from the remaining system environment (using a dedicated virtual machine).
 
@@ -8,14 +10,14 @@ The following sections shows how to run the engine. To build from source code pl
 
 
 
-## Requirements to run the NGSPipes Engine
+### Requirements to run the engine for workstation
 
 The machine where _NGSPipe engine_ is to be executed needs the following tools:
 
 * Java 8 Development Kit (http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html).
 * VirtualBox version >= 5.0 (https://www.virtualbox.org/wiki/Downloads). NOTE: Ensure the command `VBoxManage` can be found by the *command line* of your operating system.
 
-## Install NGSPipes Engine
+### Install engine for workstation
 
 The _NGSPipes engine_ is made of a regular Java application and a VirtualBox's compliant image (also identified as _executor_). To deploy this in your system:
 
@@ -42,23 +44,23 @@ After these steps you should have the following file tree:
 
 ```
 
-##  Run the NGSPipes Engine
+###  Run the Engine for workstation
 
 The engine is provider as a console application or a graphical user interface application.
 
-###  Engine command line tool
+#### command line tool
 
 This is a regular Java application packed as a JAR file. To run, use the following command line at the working directory (`WD`):
 
-#### Windows:
+##### Windows:
 
 ``c:\WD>engine-1.0\bin\engine.bat <mandatory arguments> [<optional arguments>]``
 
-#### OSX/Linux
+##### OSX/Linux
 
 ``user@machine:/home/WD$ engine-1.0/bin/engine <mandatory arguments> [<optional arguments>]``
 
-#### Parameters
+##### Parameters
 
 * The command line tool has the following mandatory parameters :
 
@@ -80,7 +82,7 @@ This is a regular Java application packed as a JAR file. To run, use the followi
 
  `-executor` <arg>   Executor image name. If not present, uses the image located at WD/NGSPipesEngineExecutor.
 
-#### Example
+##### Example
 
 A small example with only manadatory arguments (a more complete description is presented in section [Use Case](#usecase)):
 
@@ -88,7 +90,7 @@ A small example with only manadatory arguments (a more complete description is p
   engine-1.0/bin/engine -in /home/ngs/inputs -out /home/ngs/outputs -pipes pipeline.pipes
 ```
 
-#### Error reporting 
+##### Error reporting 
 
 The next figure shows an error report from the pipeline engine when executing a pipeline where a mandatory argument is not specified.
 
@@ -99,15 +101,15 @@ The next figure shows an error report from the pipeline engine when executing a 
 [[EngineWrongArgument-CMD.png]]
 
 
-### Engine GUI
+#### User interface tool
 
 The GUI version of the _NGSPipes Engine_ allows the same operations but using a graphical interface. When installed at a working directory (`WD`), the tool can be executed in the file explorer of your operating system:
 
-#### Windows
+##### Windows
 
 ``WD\engine-1.0\bin\engine-ui.bat``
 
-#### OSX/Linux
+##### OSX/Linux
 
 ``WD/engine-1.0/bin/engine-ui``
 
@@ -138,7 +140,7 @@ Then select the button "Open anyway"
 **Notice that depending on the MAC OS version, it may be necessary to unlock to make changes and to select the option "Allow apps downloaded from Anywhere**
  
 
-#### Screen shots
+##### Screen shots
 
 The following image shows a screenshot of the main windows and a short description of each button. 
 
@@ -146,7 +148,7 @@ The following image shows a screenshot of the main windows and a short descripti
 
 There are two main tabs: **Recent pipelines** and **Engines**. The **Recent pipelines** tab lists the last pipelines loaded by the application. It also allows the [configuration](#config) of parameters for a selected pipeline. The **Engines** tab shows the previously used instances. In each engine, different tools can already be installed. The user can choose which instance to execute based on his knowledge of the pipeline.
 
-#### Load pipeline
+##### Load pipeline
 
 When loading a pipeline the user chooses the file with the pipeline description, the directory at the user's computer where the results are to be written and the path from where the data is to be loaded. The user can also choose which engine instance to use.
 
@@ -158,13 +160,13 @@ When a pipeline description in already loaded by the UI, several execution param
 
 [[screen-config.png]]
 
-#### Execute pipeline
+##### Execute pipeline
 
 When an engine instance is selected and the "Run Pipeline" button is pressed, the UI will show the following window, where output information regarding the execution steps are presented.
 
 [[screen-execute.png]]
 
-#### Error reporting
+##### Error reporting
 
 Errors can occur during the execution of a pipeline. For example, the next figure shows an error related to a mandatory argument that is not specified.
 
@@ -176,7 +178,7 @@ The next figure shows an error related to a mismatch between the type of value u
 
 
 
-###  Use case
+####  Use case
 
 The following use case executes the pipeline described in the [DSL section](https://github.com/ngspipes/dsl/wiki#head3) using the console version of *NGSEngine*. The tools' repository used in the pipeline is [https://github.com/ngspipes/repository](https://github.com/ngspipes/repository). It has metadata for the tools *Trimmomatic*, *Velvet* and *Blast*.
 
@@ -202,13 +204,13 @@ c:\ngspipes\inputs
 * Create the `outputs` directory (`c:\ngspipes\outputs`)
 * Execute the *engine* at your working directory using the following command line:
 
-#### Windows
+##### Windows
 ``c:\ngspipes>engine-1.0\bin\engine.bat -in c:\ngspipes\inputs -out c:\ngspipes\outputs -pipes c:\ngspipes\pipeline.pipes``
 
-#### OSX/Linux
+##### OSX/Linux
 ``ngs@server:/home/ngspipes$engine-1.0/bin/engine -in /home/ngspipes/inputs -out /home/ngspipes/outputs -pipes /home/ngspipes/pipeline.pipes``
 
-#### Example and description of output messages
+##### Example and description of output messages
 
 Initial steps of the output will look like this:
 
@@ -270,7 +272,7 @@ c:\ngspipes\outputs
       |-- stats.txt
 ```
 
-#### Execution times
+##### Execution times
 
 <a href="#exectimes"></a>
 
@@ -297,7 +299,32 @@ As expected, a cold start takes an extra time because of intial setup and downlo
 * the input data and resources assigned to the execution image (CPU (`-cpus`) and memory (`-mem`)).
 
 
-##  Appendix: Libraries dependencies
+### Instructions to build NGS Pipes Engine from source code
+
+#### Requirements 
+
+No specific tools must be installed to build the _NGSPipes engine_. The code is available at git hub repository, which can be downloaded as a zip. 
+
+The  source code repository can also be *cloned*. In the last case, the [git version control tool](https://git-scm.com/downloads) must be installed first.
+
+#### Build commands
+
+To build the _NGSPipes engine_ follow these steps:
+
+* Download the zip or clone the [git repo](https://github.com/ngspipes/main) to your working directory. The following command will build all the components -- [DSL](https://github.com/ngspipes/dsl/wiki), [Tools repository](https://github.com/ngspipes/tools/wiki) and the [Engine](https://github.com/ngspipes/engine/wiki) (both console and UI version).
+   * `cd main`
+   * `git submodule init`
+   * `git submodule update`
+   * `gradlew build` (This will install [Gradle](http://gradle.org/whygradle-build-automation/), if necessary)
+* To generate the `engine-1.0.zip` and `editor-1.0.zip` distributions files, run `gradlew distZip`, at `main` directory. The files will be located at the respective `build/distributions` directory.
+
+
+## Engine for cloud
+
+
+
+
+###  Appendix: Libraries dependencies
 
 The _NGSPipes engine_ is dependent of the following libraries:
 
