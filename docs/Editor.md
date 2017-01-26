@@ -29,25 +29,24 @@ you should have the following file tree:
 Then you can simple double click on corresponding script.
 
 If you have OSX and you you prefer the double click version to run the editor, it may appears, only the first time after you double click it, the following info:
-<a name="fig1">
-![Figure 1](https://cloud.githubusercontent.com/assets/1495120/12481114/d82ec584-c03e-11e5-89b7-991b2b94a1b5.png)
-</a>
+
+![Figure 1](_Images/editor_fig1.png)
+
 
 **Figure 1**
 
 Then, go to  "System Preferences" and choose "Security and Privacy"
 
-<a name="fig2">
-![](https://cloud.githubusercontent.com/assets/1495120/12481218/80709380-c03f-11e5-9d50-c21bb22fea56.png)
-</a>
+
+![Figure 2](_Images/editor_fig2.png)
+
 
 **Figure 2**
 
 Then select the button "Open anyway"
 
--<a name="fig3">
--![](https://cloud.githubusercontent.com/assets/1495120/12481272/d732bdd8-c03f-11e5-89c5-6974ff9ba482.png)
--</a>
+![Figure 3](_Images/editor_fig3.png)
+
 
 **Notice that depending on the MAC OS version, it may be necessary to unlock to make changes and to select the option "Allow apps downloaded from Anywhere"**
 
@@ -57,11 +56,7 @@ Then select the button "Open anyway"
  The initial GUI that appears from editor is the following:
  
 
-
-
-<a name="fig4">
-![](https://cloud.githubusercontent.com/assets/1495120/12481598/2047c2fa-c042-11e5-866b-02cf46b2dc9f.png)
-</a>
+![Figure 4](_Images/editor_fig4.png)
 
 **Figure 4**
 
@@ -72,23 +67,17 @@ Moreover, in the editor's menu, selecting `help` and then the menu item `about`,
 
 When defining a new pipeline (we will explain how to define a new pipeline in the Section [5](#head5)),  the editor environment will appear similar to one of Figures 5 and 6 (it depends on the edition that is being performed). 
 
-<a name="fig5">
-![](https://cloud.githubusercontent.com/assets/1495120/12481511/a8bc09ee-c041-11e5-8559-7d1fe010671c.png)
-</a>
+![Figure 5](_Images/editor_fig5.png)
 **Figure 5**
 
-<a name="fig6">
-![](https://cloud.githubusercontent.com/assets/1495120/12481812/9abc28e0-c043-11e5-9da2-2f9c72243212.png)
-</a>
+![Figure 6](_Images/editor_fig6.png)
 
 **Figure 6**
 
 
 The NGSPipes Editor is composed of 5 sections: utilities; repository; tools; commands; pipeline and menu bar.
 These sections are pointed out in Figure 7.
-<a name="fig7">
-![](https://cloud.githubusercontent.com/assets/1495120/12640750/84a4a7c0-c5a3-11e5-8986-202716d73197.png)
-</a>
+![Figure 7](_Images/editor_fig7.png)
 
 **Figure 7**
 
@@ -111,9 +100,7 @@ More specifically,
 When the Editor starts, it loads a local repository that is included within the tool. However, user can select other repository, either local or remote. To select other repository, go to the menu `Repository` and select `Change repository`.
 In the version 1 of the Editor, there are four types that are supported, as depicted in Figure [8](#fig8).
 
-<a name="fig8">
-![](https://cloud.githubusercontent.com/assets/1495120/12616409/eb5c9d3e-c502-11e5-841d-199286f275c3.png)
-</a>
+![Figure 8](_Images/editor_fig8.png)
 
 **Figure 8**
 
@@ -121,17 +108,13 @@ The `Default` is a local repository that is included within the tool. To specify
 
 Then, it is possible to observe the **repository section** on Figure [9](#fig9). 
 
-<a name="fig9">
-![](https://cloud.githubusercontent.com/assets/1495120/12617103/1ba97fea-c506-11e5-8453-2ed3260d8499.png)
-</a>
+![Figure 9](_Images/editor_fig9.png)
 
 **Figure 9**
 
 In the **repository section**, the user may explore all the tools that are available on the repository, as well as filter them by name. It is also possible to obtain the description of a tool if we place the mouse over the tool's logotype. Selecting a tool, will open the **tool section** (in Figure [5](#fig5), Velvet is selected and the tool section is at the bottom, centered), where is possible to navigate over all the commands available within that tool. In some cases, the tool has only one command, as for instance the Trimmomatic tool. It is also possible to obtain the description of each command similarly as done for obtaining the tool description. In these sections, the user may obtain more information about a given tool, command, input or output, only by selecting a given item of one of these sections with the right button of the mouse and selecting the Description option. This option opens a new window with all the information available on the repository, as depicted in Figure [10](#fig10).
 
-<a name="fig10">
-![](https://cloud.githubusercontent.com/assets/1495120/12568263/7bc82796-c3bc-11e5-8ecd-f22c4bbde2e4.png)
-</a>
+![Figure 10](_Images/editor_fig10.png)
 
 **Figure 10**
 
@@ -141,9 +124,7 @@ The other sections, namely the **pipeline** and **command** sections will be det
 
 In order to create a new pipeline, after selecting the ` tools' repository`, please select the button with a plus (in the utilities section) or go to the menu `File` and select the option `new`.
 
-<a name="fig11">
-![](https://cloud.githubusercontent.com/assets/1495120/12617431/92f24db0-c507-11e5-8d85-602125109c12.png)
-</a>
+![Figure 11](_Images/editor_fig11.png)
 
 **Figure 11**
 
@@ -151,9 +132,7 @@ In order to create a new pipeline, after selecting the ` tools' repository`, ple
 
 After defining the directory where the pipeline is kept and the name of the pipeline, it will appear the **pipeline section**, as depicted in the following Figure.
 
-<a name="fig12">
-![](https://cloud.githubusercontent.com/assets/1495120/12617738/e28e3414-c508-11e5-8926-1720d22bde41.png)
-</a>
+![Figure 12](_Images/editor_fig12.png)
 
 The pipeline creation generates a file with extension `.wf`. This file keeps all information of a pipeline within the editor, not only the commands as well as the visual positions of the pipeline within the editor.
 
@@ -169,24 +148,18 @@ Before defining the chain, it is necessary to add the commands to execute within
 
 For defining the chain between two commands, it is necessary to drag the **blue icon** that appears in the command image within the `chain` panel, after a double click.
 
-<a name="fig13">
-![](https://cloud.githubusercontent.com/assets/1495120/12618522/12355762-c50c-11e5-8207-8b86b7051d2c.png)
-</a>
+![Figure 13](_Images/Editor_fig13.png)
 
 **Figure 13**
 
 Then it is necessary to select the **blue icon** and drag it to the command to which is to do the chain operation. After that, it will appear the following figure:
 
-<a name="fig14">
-![](https://cloud.githubusercontent.com/assets/1495120/12618572/5cd02acc-c50c-11e5-8672-1ff70ec853bd.png)
-</a>
+![Figure 14](_Images/editor_fig14.png)
 **Figure 14**
 
 Here it is necessary to select the output to be chained as an argument to the other tool. After that, it is necessary to click on the *blue icon* and the chain action will be set and a black arrow will appear between both tools (see next Figure).
 
-<a name="fig15">
-![](https://cloud.githubusercontent.com/assets/1495120/12618629/9ba3317c-c50c-11e5-9d3f-21b435aadb5d.png)
-</a>
+![Figure 15](_Images/editor_fig15.png)
 **Figure 15**
 
 
@@ -210,7 +183,7 @@ To load an existing pipeline, it is necessary to go to `File -> Open` and choose
 It is possible to have multiple loaded pipelines, but just one is active.
 
 
-![](https://cloud.githubusercontent.com/assets/1495120/12640476/0421eba4-c5a2-11e5-883b-8b0fe0edc1e5.png)
+![Figure 16](_Images/editor_fig16.png)
 
 
 ## Error Reporting
@@ -219,19 +192,17 @@ Each argument of a command of a given tool has a type and may be or not optional
 appears in a red box.
 The type of each argument must be one of the following: integer number; file; text; real number or a directory. When the user assigns an incompatible type to a given argument, the editor will generate an error message to report that situation. An example of this situation is depicted in the following figure:
 
-![](https://cloud.githubusercontent.com/assets/1495120/19511056/94b39440-95dd-11e6-8b5f-c5cf439ff423.png)
+![Figure 17](_Images/editor_fig17.png)
 
 If the user does not set a compatible value to a required argument, the editor will also
 generate an error message to report that situation, when generating the pipeline specification (pressing the generate button). 
 
-![](https://cloud.githubusercontent.com/assets/1495120/19511108/c28c0c1c-95dd-11e6-8b65-47b31f0e193e.png)
-
+![Figure 18](_Images/editor_fig18.png)
 
 ## Multiple inputs
 
 The tools can produce multiple outputs. These tools also might require multiple inputs coming from different tools or the same tool. When the multiple inputs are from the same tool, NGSPipes supports it by adding a numbered label on the arrow.
 This functionality is depicted in the following figure:
-
-![] (https://cloud.githubusercontent.com/assets/1495120/19566045/db25483e-96e0-11e6-9798-021c448c1f11.png)
+![Figure 18](_Images/editor_fig18.png)
 
 Notice that this label is only visible when one of the tools is selected.

@@ -174,7 +174,7 @@ Errors can occur during the execution of a pipeline. For example, the next figur
 
 The next figure shows an error related to a mismatch between the type of value used in the pipline and the type of parameter that is present in the specification of the tool.
 
-![](_Images/EngineWrongArgument.1..png)
+![](_Images/EngineWrongArgument.1.png)
 
 
 ####  Use case
