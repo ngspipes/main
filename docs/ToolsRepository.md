@@ -292,7 +292,9 @@ java -jar <path to trimmomatic.jar> PE
 Thus, considering the SINGLE END DATA, a possible execution in the command line could be like the following
 
 ```
-java -jar local/trimmomatic/trimmomatic-0.33.jar SE -phred33 ERR406040.fastq ERR406040.filtered.fastq ILLUMINACLIP:local/trimmomatic/adapters/TruSeq3-SE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36 
+java -jar local/trimmomatic/trimmomatic-0.33.jar SE -phred33 ERR406040.fastq 
+ERR406040.filtered.fastq ILLUMINACLIP:local/trimmomatic/adapters/TruSeq3-SE.fa:2:30:10 
+LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36 
 ```
 
 In this case the input file is `ERR406040.fastq` and the output file is ERR406040.filtered.fastq. Thus, in the Trimmomatic tool description, we have included as arguments the following:
