@@ -124,17 +124,16 @@ If you have OSX and you you prefer the double click version to run the editor, i
 
 Then, go to  "System Preferences" and choose "Security and Privacy"
 
-<a name="fig2">
-![](https://cloud.githubusercontent.com/assets/1495120/12481218/80709380-c03f-11e5-9d50-c21bb22fea56.png)
-</a>
+
+![Figure2](_Images/engine_fig4.png)
+
 
 **Figure 2**
 
 Then select the button "Open anyway"
 
-<a name="fig3">
-![](https://cloud.githubusercontent.com/assets/1495120/12481272/d732bdd8-c03f-11e5-89c5-6974ff9ba482.png)
-</a>
+![Figure3](_Images/engine_fig5.png)
+
  
 **Figure 3**
  
@@ -145,7 +144,7 @@ Then select the button "Open anyway"
 
 The following image shows a screenshot of the main windows and a short description of each button. 
 
-[[screen-main.png]]
+![](_Images/screen-main.png)
 
 There are two main tabs: **Recent pipelines** and **Engines**. The **Recent pipelines** tab lists the last pipelines loaded by the application. It also allows the [configuration](#config) of parameters for a selected pipeline. The **Engines** tab shows the previously used instances. In each engine, different tools can already be installed. The user can choose which instance to execute based on his knowledge of the pipeline.
 
@@ -153,30 +152,29 @@ There are two main tabs: **Recent pipelines** and **Engines**. The **Recent pipe
 
 When loading a pipeline the user chooses the file with the pipeline description, the directory at the user's computer where the results are to be written and the path from where the data is to be loaded. The user can also choose which engine instance to use.
 
-[[screen-load.png]]
+![](_Images/screen-load.png)
 
 #### Configure pipeline
 
 When a pipeline description in already loaded by the UI, several execution parameters can be changed: paths, engine instance, memory and number of cores.
 
-[[screen-config.png]]
+![](_Images/screen-config.png)
 
 ##### Execute pipeline
 
 When an engine instance is selected and the "Run Pipeline" button is pressed, the UI will show the following window, where output information regarding the execution steps are presented.
 
-[[screen-execute.png]]
+![](_Images/screen-execute.png)
 
 ##### Error reporting
 
 Errors can occur during the execution of a pipeline. For example, the next figure shows an error related to a mandatory argument that is not specified.
 
-[[EngineMustUseArgument.png]]
+![](_Images/EngineMustUseArgument.png)
 
 The next figure shows an error related to a mismatch between the type of value used in the pipline and the type of parameter that is present in the specification of the tool.
 
-[[EngineWrongArgument.1.png]]
-
+![](_Images/EngineWrongArgument.1..png)
 
 
 ####  Use case
