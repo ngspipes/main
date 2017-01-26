@@ -286,7 +286,8 @@ For paired-end data, two input files, and 4 output files are specified, 2 for th
 java -jar <path to trimmomatic.jar> PE 
          [-threads <threads] [-phred33 | -phred64] [-trimlog <logFile>] >] 
          [-basein <inputBase> | <input 1> <input 2>] 
-         [-baseout <outputBase> | <unpaired output 1> <paired output 2> <unpaired output 2> <step 1> ... 
+         [-baseout <outputBase> | <unpaired output 1>
+          <paired output 2> <unpaired output 2> <step 1> ... 
 ```
 
 Thus, considering the SINGLE END DATA, a possible execution in the command line could be like the following

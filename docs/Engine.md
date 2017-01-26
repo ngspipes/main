@@ -216,7 +216,8 @@ Initial steps of the output will look like this:
 ```
 Loading engine directories
 Loading engine resources
-Using classpath C:/Users/user/NGSPipes/Engine/dsl-1.0.jar;C:/Users/user/NGSPipes/Engine/repository-1.0.jar
+Using classpath C:/Users/user/NGSPipes/Engine/dsl-1.0.jar;
+               C:/Users/user/NGSPipes/Engine/repository-1.0.jar
 Getting engine requirements
 Getting clone engine
 Clonning engine
@@ -238,7 +239,13 @@ Note that the cloning step only happens in the first execution of the engine. On
 ...
 TRACE    :: STARTED ::
 TRACE   Running -> Step : 1 Tool : Trimmomatic Command : trimmomatic
-INFO    Executing : sudo docker run -v /home/ngspipes/Inputs/:/shareInputs/:rw -v /home/ngspipes/Outputs/:/shareOutputs/:rw ngspipes/trimmomatic0.33 java -jar trimmomatic-0.33.jar SE -phred33 /shareInputs/ERR406040.fastq /shareOutputs/ERR406040.filtered.fastq  ILLUMINACLIP:/shareInputs/adapters/TruSeq3-SE.fa:2:30:10 SLIDINGWINDOW:4:15 LEADING:3 TRAILING:3   MINLEN:36
+INFO    Executing : sudo docker run -v /home/ngspipes/Inputs/:/shareInputs/:rw -v 
+                            /home/ngspipes/Outputs/:/shareOutputs/:rw  
+                        ngspipes/trimmomatic0.33 java -jar trimmomatic-0.33.jar SE 
+                        -phred33 /shareInputs/ERR406040.fastq /shareOutputs
+                        ERR406040.filtered.fastq  
+                        ILLUMINACLIP:/shareInputs/adapters/TruSeq3-SE.fa:2:30:10
+                        SLIDINGWINDOW:4:15 LEADING:3 TRAILING:3   MINLEN:36
 INFO    Unable to find image 'ngspipes/trimmomatic0.33:latest' locally
 INFO    latest: Pulling from ngspipes/trimmomatic0.33
 INFO    511136ea3c5a: Pulling fs layer
@@ -248,7 +255,10 @@ INFO    c9fa20ecce88: Pulling fs layer
 INFO    6cf3f4911f80: Download complete
 INFO    Digest: sha256:44f1dea760903cdce1d75c4c9b2bd37803be2e0fbbb9e960cd8ff27048cbb997
 INFO    Status: Downloaded newer image for ngspipes/trimmomatic0.33:latest
-INFO    TrimmomaticSE: Started with arguments: -phred33 /shareInputs/ERR406040.fastq /shareOutputs/ERR406040.filtered.fastq ILLUMINACLIP:/shareInputs/adapters/TruSeq3-SE.fa:2:30:10 SLIDINGWINDOW:4:15 LEADING:3 TRAILING:3 MINLEN:36
+INFO    TrimmomaticSE: Started with arguments: -phred33 /shareInputs/ERR406040.fastq 
+                            / shareOutputs/ERR406040.filtered.fastq 
+                            ILLUMINACLIP:/shareInputs/adapters/TruSeq3-SE.fa:2:30:10 
+                            SLIDINGWINDOW:4:15 LEADING:3 TRAILING:3 MINLEN:36
 ...
 ```
 
@@ -278,7 +288,8 @@ c:\ngspipes\outputs
 The above example was executed using several hardware configurations and operating systems. The pipeline was executed with the command line:
 
 ```
-ngs@server:/home/ngspipes$engine-1.0/bin/engine -in /home/ngspipes/inputs -out /home/ngspipes/outputs -pipes /home/ngspipes/pipeline.pipes
+ngs@server:/home/ngspipes$engine-1.0/bin/engine -in /home/ngspipes/inputs
+                          -out /home/ngspipes/outputs -pipes /home/ngspipes/pipeline.pipes
 ```
 
 The folowing table shows execution times measured on *cold* and *warm* start situations. Cold start happens when the engine is executed the first time after installation. Warm start represents the situation when a pipeline is being re-executed and no updates are necessary to the tools.
