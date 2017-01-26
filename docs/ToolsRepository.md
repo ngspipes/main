@@ -69,7 +69,8 @@ The format of this file is given by the following JSON schema:
                   "type": "object",
                   "properties": {
                     "name": {"type": "string" },
-                    "argumentType": {"type": { "enum": ["int","file","string","double","directory"]}},
+                    "argumentType": {"type": { 
+                             "enum": ["int","file","string","double","directory"]}},
                     "isRequired": {"type": { "enum": ["true","false"]} },
                     "description": { "type": "string" }
                   },
@@ -83,7 +84,8 @@ The format of this file is given by the following JSON schema:
                   "properties": {
                     "name": {"type": "string"},
                     "description": {"type": "string"},
-                    "outputType": {"type": { "enum": ["directory_dependent","file_dependent","independent"]}},
+                    "outputType": {"type": { 
+                          "enum": ["directory_dependent","file_dependent","independent"]}},
                     "argument_name": {"type": "string"},
                     "value": { "type": "string" }
                   },
@@ -91,10 +93,12 @@ The format of this file is given by the following JSON schema:
                 }
               }
             },
-            "required": ["name","command","description","priority", "argumentsComposer", "arguments","outputs"]
+            "required": ["name","command","description","priority", 
+                         "argumentsComposer", "arguments","outputs"]
           }
         },
-       "required": ["name","author","version","description","documentation","setup","requiredMemory","commands"]
+       "required": ["name","author","version","description",
+                    "documentation","setup","requiredMemory","commands"]
        }
     }        
    ```  
