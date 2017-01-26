@@ -69,7 +69,7 @@ The format of this file is given by the following JSON schema:
                   "type": "object",
                   "properties": {
                     "name": {"type": "string" },
-                    "argumentType": {"type": { 
+                    "argumentType": {"type":                     { 
                              "enum": ["int","file","string","double","directory"]}},
                     "isRequired": {"type": { "enum": ["true","false"]} },
                     "description": { "type": "string" }
@@ -243,7 +243,8 @@ Therefore, the description of `velvetg` command, within the descriptor of `velve
    "name" : "-cov_cutoff",
    "argumentType" : "float",
    "isRequired" : "false",
-   "description" : "remove coverage nodes AFTER tour bus or allow the system to infer it (default no removal)"
+   "description" : "remove coverage nodes 
+                 AFTER tour bus or allow the system to infer it (default no removal)"
 },
 ```
 And, since the output directory produces output files the produced output is `directory_dependent` as we can see in section "Output descriptions" within this section, the JSON object for defining the outputs of `velvetg` command starts with
@@ -273,15 +274,26 @@ Another example referred in this documentation is the Trimmomatic tool. As we ca
 For single-ended data, one input and one output file are specified. The required processing steps (trimming, cropping, adapter clipping etc.) are specified as additional arguments after the input/output files.
 Thus, it appears in description how to execute this command
 
-` java -jar <path to trimmomatic jar> SE [-threads <threads>] [-phred33 | -phred64] [-trimlog <logFile>] <input> <output> <step 1> ... `
+``` 
+java -jar <path to trimmomatic jar> SE 
+            [-threads <threads>] [-phred33 | -phred64] [-trimlog <logFile>] 
+             <input> <output> <step 1> ... 
+```             
 
 For paired-end data, two input files, and 4 output files are specified, 2 for the 'paired' output where both reads survived the processing, and 2 for corresponding 'unpaired' output where a read survived, but the partner read did not. Thus, it appears in the description how to executed this command in this version
 
-` java -jar <path to trimmomatic.jar> PE [-threads <threads] [-phred33 | -phred64] [-trimlog <logFile>] >] [-basein <inputBase> | <input 1> <input 2>] [-baseout <outputBase> | <unpaired output 1> <paired output 2> <unpaired output 2> <step 1> ... `
+```
+java -jar <path to trimmomatic.jar> PE 
+         [-threads <threads] [-phred33 | -phred64] [-trimlog <logFile>] >] 
+         [-basein <inputBase> | <input 1> <input 2>] 
+         [-baseout <outputBase> | <unpaired output 1> <paired output 2> <unpaired output 2> <step 1> ... 
+```
 
 Thus, considering the SINGLE END DATA, a possible execution in the command line could be like the following
 
-`java -jar local/trimmomatic/trimmomatic-0.33.jar SE -phred33 ERR406040.fastq ERR406040.filtered.fastq ILLUMINACLIP:local/trimmomatic/adapters/TruSeq3-SE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36 `
+```
+java -jar local/trimmomatic/trimmomatic-0.33.jar SE -phred33 ERR406040.fastq ERR406040.filtered.fastq ILLUMINACLIP:local/trimmomatic/adapters/TruSeq3-SE.fa:2:30:10 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36 
+```
 
 In this case the input file is `ERR406040.fastq` and the output file is ERR406040.filtered.fastq. Thus, in the Trimmomatic tool description, we have included as arguments the following:
 
