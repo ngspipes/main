@@ -559,9 +559,7 @@ This will download the outputs of the pipeline to the directory where the monito
 
 
 Here is a video for demostrating the previous steps:
-<iframe width="420" height="315"
-  src="https://youtu.be/h_2kt1j84Gc">
-</iframe>
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/h_2kt1j84Gc" frameborder="0" allowfullscreen></iframe>
 
 
