@@ -331,5 +331,237 @@ To build the _NGSPipes engine_ follow these steps:
 
 ## Engine for cloud
 
+The Engine for cloud solution consists of two tools: the **analyser** and the **monitor**. 
+
+The **analyser** inspects the given pipeline and, using the information stored in the tool meta-data repository, 
+produces the instructions to execute the pipeline, along with the required computational resources for its execution.
+These tool produces internally a graph of tasks, which reflects the dependency among the tasks and allows to infer what
+ can be executed in parallel an what can only be executed in serie.
+These instructions are then written to a file and locally stored, giving origin to an intermediate representation. 
+The analyser tool can be simple executed in a workstation or in a cloud environment.
+
+Given the pipeline representation produced by the Analyser tool, the **monitor** can be launched. 
+The monitor tool is suitable for running in a cloud environment. 
+It converts the intermediate representation into jobs' descriptions readable by [Chronos](https://mesos.github.io/chronos/) and, 
+using Chronos's REST API, schedules them for execution. 
+The tasks are deployed in a **cluster of machines** governed by the
+[Mesos](http://mesos.apache.org/) batch job scheduling framework Chronos
+Having launched the pipeline, the user can now query the system to know its current state. 
+This results in a series of requests from the monitor to Chronos. When the pipeline finishes the execution, the user can make a request to the monitor to download its outputs.
+
+We provide a **jar file with the analyser tool** and a **virtual machine with the monitor tool** for experimental
+purposes, where users can simulate a cluster. With this machine, pipelines can be tested  without requiring a big amount
+of computational ressources or an account in a cloud provider. Thus our solution can be tested in this virtual
+machine or within a cloud provider, as described in the subsection "Install engine for cloud".
+
+Next figure describes the main components of this engine and their interactions.
+
+![Figure 6](_Images/Engine_fig6.png)
+
+### Requirements to run the engine for cloud
+
+To run the **[analyser tool](http://tinyurl.com/h48zskc)**  you will need:
+
+ - to have installed  [JRE 8](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html).
+ 
+To run the **monitor (within the virtual machine that we supply for testing)** you will need:
+
+ - to have installed  [JRE 8](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html).
+ 
+ - virtualization software which supports vmdk files, like [VMware](http://www.vmware.com/) or [VirtualBox](https://www.virtualbox.org/).
+ 
+ - To emulate the image is required 4GB of RAM and 1 CPU
+
+To run the **monitor (without the virtual machine that we supply for testing)** you will need: 
+
+  - a cluster with Chronos installed with the following requirements:
+  		
+  	- an endpoint to Chronos REST API;
+  	
+  	- Support for the execution od Docker jobs on all Mesos-Agents (Slaves);
+  	
+  	- A NFS acessible on all Mesos-Agents
+  	
+  	- SSH acess to a cluster machine that can interact with the cluster's NFS;
+  	
+  	
+
+### Install the engine for cloud
+
+#### Install the analyser 
+
+To deploy this in your system:
+ 
+ -  Create a new directory named Analyser and download the [jar](http://tinyurl.com/h48zskc) to there.
+ 
+ 
+#### Install the monitor
+
+To deploy this in your system:
+ 
+ -  Create a new directory named Monitor and download the [jar](http://tinyurl.com/j22n92z) to there.
+
+Normally to execute [monitor.jar](http://tinyurl.com/j22n92z)  one would need a cluster with the specifications mentioned above. 
+**However to facilitate executing, for testing purposes, we provide a [Virtual Image](http://tinyurl.com/h8xg4n7) 
+which emulates an appropriate cluster to execute monitor.jar.**
+In a cloud environment, 
+the setting will be similar, with the corresponding credentials.
+
+Emulate the image of the cluster using a virtualization software which supports vmdk files, like 
+[VMware](http://www.vmware.com/) or [VirtualBox](https://www.virtualbox.org/). 
+To emulate the image **is required 4GB of RAM and 1 CPU**.
+
+After launching the virtual machine, wait for the graphical environment and log in the desktop using the following
+credentials: 
+
+```
+User: ngs4cloud
+Pass: cloud123
+```
+
+Open a terminal and type the command 
+
+```
+/sbin/ifconfig
+```
+ and get the ip of Virtual Machine.
+
+Now back to the host OS. If you try to execute the monitor the following message will be shown +
+
+```
+"The environmental variable NGS4_CLOUD_MONITOR_CONFIGS needs to be defined with the path of the configuration file"
+```
+	
+Therefore we need to first setup the configurations so that we can execute the monitor.
+In same directory where monitor.jar is, create a file named ```configs``` and open it.
+Now write on the file the following configurations:
+
+```
+	SSH_HOST = "The ip of the virtual machine"
+	SSH_PORT = 22
+	SSH_USER = ngs4cloud
+	SSH_PASS = cloud123
+	CHRONOS_HOST = "The ip of the virtual machine"
+	CHRONOS_PORT = 4400
+	PIPELINE_OWNER = example@example.com
+	CLUSTER_SHARED_DIR_PATH = /home/ngs4cloud/pipes
+	WGET_DOCKER_IMAGE = jnforja/wget
+	P7ZIP_DOCKER_IMAGE = jnforja/7zip
+```
+
+In the monitor directory create another directory called ```repo``` and add the following entry to the configs file:
+
+```
+EXECUTION_TRACKER_REPO_PATH = "The repo directory path"
+```
+
+Save the ```configs``` file and close it.
+Now to finish configuring the monitor just add a environment variable named ```NGS4_CLOUD_MONITOR_CONFIGS``` with the path of the configs file as value.
+
+Open a terminal and execute **monitor.jar**, a message explaining all the commands the monitor can execute should appear.
+
+
+
+### Run the Engine for cloud
+
+#### Run the Analyser
+
+
+This a regular Java application package as a JAR file. To run, open a terminal and execute the command **analyse**
+at the working directory.
+
+```
+user@machine:/home/workingDirectory$ java -jar analyser.jar analyse <mandatory arguments> <optional arguments>
+```
+
+
+**Parameters**
+
+The command line tool has the following _mandatory_ parameters:
+
+
+- ```-pipes``` Relative ou absolute path of the pipeline description (mandatory). 
+This file must be a ```.pipes``` extension file, where the pipeline is written using the NGSPipes language.
+- ```-ir``` Intermediate representation file produced by the analyser. This filepath should be provided by the user.
+-  This file will be given as input to the 
+monitor tool.
+- ```-input``` The URI with the location of the inputs for the pipeline.
+
+The command line tool has the following _optional_ parameters :
+
+- ```-outputs``` $space_separated_list_of_outputs. When not specified, the analyser will specify in the IR file
+- that all pipeline outputs should be downloaded at the end of monitor execution.
+
+
+**Example**
+
+Here is an example:
+
+```
+java -jar analyser.jar analyse -pipes ./pipelines/pipeline.pipes 
+                               -ir ./ir/ir.json 
+                               -input https://github.com/CFSAN-Biostatistics/snp-pipeline/archive/master.zip 
+                               -outputs snp-pipeline-master/snppipeline/data/lambdaVirusInputs/snplist.txt 
+                                           snp-pipeline-master/snppipeline/data/lambdaVirusInputs/snpma.fasta
+```
+
+This will analyse and process the file ```-pipes```, store the IR in the file ```-ir```, set the input and 
+outputs for ```-ir and ```-output```.
+
+To execute the pipeline on a simulated environment, see subsection . . .
+
+#### Run the monitor
+
+In this section, we describe how to **run the monitor with the virtual image provided for testing**, after setting up the virtual imagem, as explained
+before. In a cloud environment, the setting will be similar, with the corresponding credentials.
+
+
+Open a terminal and execute **monitor.jar**, a message explaining all the commands the monitor can execute should appear. The application monitor is
+a regular Java application package as a JAR file. To run, open a terminal and execute the command **monitor** at the working directory.
+
+This aplication has 3  _commands_:
+
+- ```launch```, to lauch the execution of a pipeline.  This command is followed with the filepath of a IR file (a file produced by the analyser tool.
+- This command returns an integer, which is the id of the launched pipeline. 
+
+- ```status ```, to check the state of the pipeline execution. This command is followed by the ```ÌD``` returned by a execution of the previous command
+
+- ```outputs```, to download the outputs of a pipeline execution after it has finished. This command is followed by the ```ÌD``` of the pipeline. Notice that this will only download the outputs that were previously specified by the analyser tool to be downloaded for this pipeline.
+
+**Example**
+
+Here is an example:
+
+````
+"java -jar monitor.jar launch ir.json"
+````
+The pipeline represented in the ````file ir.json````, which in this example is assumed to be in the same directory as the monitor.jar, is launched for execution.
+You will now see in the console messages regarding the upload of the input file. 
+Once the upload is finished a message like this will appear  ```"ID: 1"```, this is the ```ID``` attributed to the launched pipeline.
+
+To check the state of the pipeline execution type the following command:
+
+``` 
+"java -jar monitor.jar status 1"
+```
+notice that "1" is the id of pipeline, which was given in the previous step. 
+If the pipeline has finished executing this message will appear
+```
+ "The pipeline execution has finished with success."
+```
+
+When the pipeline execution has finished type the following commands to download its outputs: 
+
+```
+"java -jar monitor.jar outputs 1 ."
+```
+This will download the outputs of the pipeline to the directory where the monitor is beeing executed.
+
+
+Here is a video for demostrating the previous steps:
+<iframe width="420" height="315"
+  src="https://youtu.be/h_2kt1j84Gc">
+</iframe>
+
 
 
