@@ -1,29 +1,31 @@
 # Engines
 
+Our framework offers two engines. Based on the same definition and the same tool’s repository, a pipeline can be put to run either on the workstation or on a compatible cloud environment. Both engines analyse the pipeline description and transformation it to an executable format, determining resource requirements of each tool based on the tool configuration present in the repository. 
+
 ## Engine for workstation
 
-The _NGSPipes engine_ starts with a pipeline description and transform it into a sequence of calls to the designated tools. After this, the _NGSPipes engine_ automatically configures and executes each tool in isolation from the remaining system environment (using a dedicated virtual machine).
+The _NGSPipes engine for workstation_ starts with a pipeline description and transform it into a sequence of calls to the designated tools. After this, the _engine_ automatically configures and executes each tool in isolation from the remaining system environment (using a dedicated virtual machine).
 
-The _NGSPipes engine_ is available in two flavors: a command line user interface (CUI) and a graphic user interface (GUI). The first is ideal to use when running on remote servers (either physical or deployed as virtual machines in the cloud), although it can also run locally. The second one can be used in systems where a graphical display is available.
+The _NGSPipes engine for workstation_ is available in two flavors: a command line user interface (CUI) and a graphic user interface (GUI). The first is ideal to use when running on remote servers (either physical or deployed as virtual machines in the cloud), although it can also run locally. The second one can be used in systems where a graphical display is available.
 
-The following sections shows how to run the engine. To build from source code please follow these [instructions](https://github.com/ngspipes/engine/wiki/Instructions-to-build-NGS-Pipes-Engine-from-source-code).
+The following sections shows how to run the engine. To build from source code please follow the instructions in subsection "Instructions to build NGS Pipes Engine from source code".
 
 
 
 ### Requirements to run the engine for workstation
 
-The machine where _NGSPipe engine_ is to be executed needs the following tools:
+The machine where _engine_ is to be executed needs the following tools:
 
 * Java 8 Development Kit (http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html).
 * VirtualBox version >= 5.0 (https://www.virtualbox.org/wiki/Downloads). NOTE: Ensure the command `VBoxManage` can be found by the *command line* of your operating system.
 
 ### Install engine for workstation
 
-The _NGSPipes engine_ is made of a regular Java application and a VirtualBox's compliant image (also identified as _executor_). To deploy this in your system:
+The _engine_ is made of a regular Java application and a VirtualBox's compliant image (also identified as _executor_). To deploy this in your system:
 
 1. Download [engine-2.0-zip](http://link.inesc-id.pt/pipes/engine-2.0.zip) from our file server and uncompress to a working directory (`WD`)
 1. Download the _executor_ image from [here](http://link.inesc-id.pt/pipes/NGSPipesEngineExecutor.zip) and uncompress to your work directory (`WD\engine-1.0\`)
-1. Follow the instructions bellow to either run in a system in a [text console](#console) or with a [graphical interface](#ui).
+1. Follow the instructions bellow to either run in a system in a _console_ or with a _graphical interface_.
 
 After these steps you should have the following file tree:
 
@@ -46,7 +48,7 @@ After these steps you should have the following file tree:
 
 ###  Run the Engine for workstation
 
-The engine is provider as a console application or a graphical user interface application.
+The engine is provided as a console application or a graphical user interface application.
 
 #### command line tool
 
@@ -84,7 +86,7 @@ This is a regular Java application packed as a JAR file. To run, use the followi
 
 ##### Example
 
-A small example with only manadatory arguments (a more complete description is presented in section [Use Case](#usecase)):
+A small example with only manadatory arguments (a more complete description is presented in the subsection "Use case".
 
 ```
   engine-1.0/bin/engine -in /home/ngs/inputs -out /home/ngs/outputs -pipes pipeline.pipes
@@ -104,7 +106,7 @@ The next figure shows an error report from the pipeline engine when executing a 
 
 #### User interface tool
 
-The GUI version of the _NGSPipes Engine_ allows the same operations but using a graphical interface. When installed at a working directory (`WD`), the tool can be executed in the file explorer of your operating system:
+The GUI version of the _NGSPipes Engine for workstation_ allows the same operations but using a graphical interface. When installed at a working directory (`WD`), the tool can be executed in the file explorer of your operating system:
 
 ##### Windows
 
@@ -146,7 +148,7 @@ The following image shows a screenshot of the main windows and a short descripti
 
 ![](_Images/screen-main.png)
 
-There are two main tabs: **Recent pipelines** and **Engines**. The **Recent pipelines** tab lists the last pipelines loaded by the application. It also allows the [configuration](#config) of parameters for a selected pipeline. The **Engines** tab shows the previously used instances. In each engine, different tools can already be installed. The user can choose which instance to execute based on his knowledge of the pipeline.
+There are two main tabs: **Recent pipelines** and **Engines**. The **Recent pipelines** tab lists the last pipelines loaded by the application. It also allows the configuration of parameters for a selected pipeline. The **Engines** tab shows the previously used instances. In each engine, different tools can already be installed. The user can choose which instance to execute based on his knowledge of the pipeline.
 
 ##### Load pipeline
 
@@ -181,7 +183,7 @@ The next figure shows an error related to a mismatch between the type of value u
 
 The following use case executes the pipeline described in the [DSL section](https://github.com/ngspipes/dsl/wiki#head3) using the console version of *NGSEngine*. The tools' repository used in the pipeline is [https://github.com/ngspipes/repository](https://github.com/ngspipes/repository). It has metadata for the tools *Trimmomatic*, *Velvet* and *Blast*.
 
-* Check if the [requirements](#requirements) are met and that the engine and executor image are [installed](#install).
+* Check if requirements are met and that the engine and executor image are installed.
 * Download the pipeline [here](https://link.inesc-id.pt/pipes/example/pipeline.pipes) and save it as `pipeline.pipes` to the working directory. The following examples assume the working directory is `c:\ngspipes`.
 * Download the input data [sample](https://link.inesc-id.pt/pipes/example/) and place it at `inputs` directory (other name can be chosen). This data set comes from the [NCBI SRA](http://trace.ncbi.nlm.nih.gov/Traces/sra/?run=ERR406040), being part of a project on *deep sequencing within the Streptococcus pneumoniae antibiotic resistant pandemic clone PMEN1*. Extra information on how this data was obtained can be obtained [here](https://link.inesc-id.pt/pipes/data/).
 
@@ -296,9 +298,9 @@ The folowing table shows execution times measured on *cold* and *warm* start sit
 
 | OS          | CPU                 | RAM (GB) | Disk | Cold start | Warm start |
 |-------------|---------------------|----------|------|------------|------------|
-| Windows 10  | Intel i5 @ 2.53 Ghz |    8     | SSD  |   30 min.  |   22 min.  |
-| Windows 10  | Intel i7 @ 3.5 Ghz  |    16    | HDD  |   23 min.  |   16 min.  |
-| OSX         |                     |          | SSD  |            |            |
+| Windows 10  | Intel i5 @ 2.53 Ghz |    8     | SSD  |   39 min.  |   35 min.  |
+| Windows 10  | Intel i7 @ 3.5 Ghz  |    16    | HDD  |   39 min.  |   30 min.  |
+| OSX         | Intel(TM) i5 1.8Ghz |    8     | SSD  |   41 min.  |   38 min.  |
 
 <sub>(*) [http://www.speedtest.net/](http://www.speedtest.net/)</sub>
 
@@ -309,17 +311,17 @@ As expected, a cold start takes an extra time because of intial setup and downlo
 * the input data and resources assigned to the execution image (CPU (`-cpus`) and memory (`-mem`)).
 
 
-### Instructions to build NGS Pipes Engine from source code
+### Instructions to build NGS Pipes Engine for workstation from source code
 
 #### Requirements 
 
-No specific tools must be installed to build the _NGSPipes engine_. The code is available at git hub repository, which can be downloaded as a zip. 
+No specific tools must be installed to build the _NGSPipes engine for workstation_. The code is available at git hub repository, which can be downloaded as a zip. 
 
 The  source code repository can also be *cloned*. In the last case, the [git version control tool](https://git-scm.com/downloads) must be installed first.
 
 #### Build commands
 
-To build the _NGSPipes engine_ follow these steps:
+To build the _NGSPipes engine for workstation_ follow these steps:
 
 * Download the zip or clone the [git repo](https://github.com/ngspipes/main) to your working directory. The following command will build all the components -- [DSL](https://github.com/ngspipes/dsl/wiki), [Tools repository](https://github.com/ngspipes/tools/wiki) and the [Engine](https://github.com/ngspipes/engine/wiki) (both console and UI version).
    * `cd main`
