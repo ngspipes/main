@@ -356,7 +356,7 @@ machine or within a cloud provider, as described in the subsection "Install engi
 
 Next figure describes the main components of this engine and their interactions.
 
-![Figure 6](_Images/Engine_fig6.png)
+![Figure 6](_Images/engine_fig6.png)
 
 ### Requirements to run the engine for cloud
 
@@ -429,7 +429,8 @@ Open a terminal and type the command
 Now back to the host OS. If you try to execute the monitor the following message will be shown +
 
 ```
-"The environmental variable NGS4_CLOUD_MONITOR_CONFIGS needs to be defined with the path of the configuration file"
+"The environmental variable NGS4_CLOUD_MONITOR_CONFIGS 
+needs to be defined with the path of the configuration file"
 ```
 	
 Therefore we need to first setup the configurations so that we can execute the monitor.
@@ -499,10 +500,10 @@ Here is an example:
 
 ```
 java -jar analyser.jar analyse -pipes ./pipelines/pipeline.pipes 
-                               -ir ./ir/ir.json 
-                               -input https://github.com/CFSAN-Biostatistics/snp-pipeline/archive/master.zip 
-                               -outputs snp-pipeline-master/snppipeline/data/lambdaVirusInputs/snplist.txt 
-                                           snp-pipeline-master/snppipeline/data/lambdaVirusInputs/snpma.fasta
+             -ir ./ir/ir.json 
+             -input https://github.com/CFSAN-Biostatistics/snp-pipeline/archive/master.zip 
+             -outputs snp-pipeline-master/snppipeline/data/lambdaVirusInputs/snplist.txt 
+                      snp-pipeline-master/snppipeline/data/lambdaVirusInputs/snpma.fasta
 ```
 
 This will analyse and process the file ```-pipes```, store the IR in the file ```-ir```, set the input and 
