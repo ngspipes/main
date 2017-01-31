@@ -52,7 +52,13 @@ The format of this file is given by the following JSON schema:
           "type": "array",
           "items": { "type": "string" }
          },
+         "toolType": {
+          "type": "string",
+          "enum": ["Unit", "splitting", "joinning", "listing"]
+         },
         "requiredMemory": { "type": "integer" },
+        "recommendedCpus": { "type": "integer" },
+        "recommendedDiskSpace": { "type": "integer" },
         "commands": {
           "type": "array",
           "items": {
@@ -92,19 +98,23 @@ The format of this file is given by the following JSON schema:
                  "required": ["name","description","outputType", "argument_name","value"]
                 }
               }
+            "inputs": {              "type": "array",              "items": {                 "type": "object",                 "properties": {                   "name": { "type": "string" },                   "description": { "type": "string" },                   "inputType": { "type": "string",                         "enum": [ "directory_dependent", "file_dependent", "independent"]}},
+                    "value": { "type": "string" }                "required": [ "name", "description", "inputType", "argument_name", "value"]}}    
             },
             "required": ["name","command","description","priority", 
-                         "argumentsComposer", "arguments","outputs"]
+                         "argumentsComposer", "arguments","outputs", "inputs"]
           }
         },
        "required": ["name","author","version","description",
-                    "documentation","setup","requiredMemory","commands"]
+                    "documentation","setup", "tool type", 
+                    "requiredMemory", "recomendedDiskSpace",
+                    "recommendedCpus, "commands"]
        }
     }        
    ```  
 As an example,  please see the tools descriptors that we have included in our tools' repository example, such as the [Velvet descriptor](https://github.com/ngspipes/tools/blob/master/Velvet/Descriptor.json) and the [Trimommatic descriptor](https://github.com/ngspipes/tools/blob/master/Trimmomatic/Descriptor.json) for [Velvet](https://www.ebi.ac.uk/~zerbino/velvet/) and [Trimmomatic](http://www.usadellab.org/cms/?page=trimmomatic) tools, respectively.  In our repository support library, each tool descriptor must be defined in a file named as `Descriptor.json`.
 
-As defined on the previous JSON schema, a tool description must include its _name_, _author_, _version_, _description_, _documentation_, _setup_, _required memory_ and _commands_. The _version_ property describes the version of the executable that is being considered by this descriptor. The _documentation_ property allows to add a collection of links that contains documentation about the tool. The _setup_ property contains all the __scripts__ that must be executed before executing any command within the tool. For instance, for executing the Trimmomatic command, it must be previously installed the Java Runtime Environment. Thus, in the Trimmomatic descriptor, we include the following setup: 
+As defined on the previous JSON schema, a tool description must include its _name_, _author_, _version_, _description_, _documentation_, _setup_, _toolType_, _required memory_ , _recommendedCpus_, _recommendedDiskSpace_ and _commands_. The _version_ property describes the version of the executable that is being considered by this descriptor. The _documentation_ property allows to add a collection of links that contains documentation about the tool. The _setup_ property contains all the __scripts__ that must be executed before executing any command within the tool. For instance, for executing the Trimmomatic command, it must be previously installed the Java Runtime Environment. Thus, in the Trimmomatic descriptor, we include the following setup: 
 ```
  "setup" : [ "apt-get install -y default-jre" ]
 ```
@@ -135,6 +145,8 @@ _arguments_ is an array of JSON objects that describes each argument of a specif
 },
 ```
 Both of the previous examples have the `isRequired` property set to `false` since for non  SINGLE END data, trimmomatic execution uses pairs of input and output files, which are described in the tool descriptor by other arguments.
+
+
 
 ####  Output descriptions
 
@@ -178,8 +190,7 @@ As an example, consider the `velvet` tool, where the commands outputs are of thi
 Therefore, since the output directory is a command argument, we have to specify in the tool descriptor a corresponding argument description, such as 
 
 ```
-    {
-    "name" : "output_directory",
+    {    "name" : "output_directory",
     "outputType" : "directory",
     "isRequired" : "true",
     "description" : "Directory where will be output files"
@@ -197,6 +208,11 @@ And thus, an example of the output descriptor in the descriptor file, correspond
     }
 ```
 Notice that the file name `stats.txt` is not passed as an argument to `velveth` nor to `velvetg`. Instead, it is generated internally and is stored in the output directory whose name was passed as an argument.
+
+####  Input descriptions
+
+
+_input_ is an array of JSON objects that describes the inputs of each command. They are similar to Output descriptions. They help inferring dependencies between pipeline tasks.
 
 
 #### ArgumentsComposer

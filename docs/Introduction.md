@@ -5,7 +5,7 @@
 ![Overview of NGSPipes System](_Images/arch-pictures.png)
 
 
-## Team
+## NGSPipes Team
 
 - Alexandre Almeida, ADEETC, ISEL, Instituto Politécnico de Lisboa
 

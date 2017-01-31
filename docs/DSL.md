@@ -32,7 +32,8 @@ where `(tool)+` represents that a pipeline is composed by the execution of one o
 
 Each tool is specified in the pipeline by its name, its configuration file name (without extension) and by the set of commands within the tool that will be executed within this pipeline. For instance, in the next example the pipeline is composed only by one tool, which only includes a command.
 
-```javascript
+```
+javascript
 Pipeline "Github" "https://github.com/ngspipes/tools" {
   tool "Trimmomatic" "DockerConfig" {
     command "trimmomatic" {
@@ -284,10 +285,14 @@ Pipeline "Github" "https://github.com/ngspipes/tools" {
 ```
 
 A visual representation of this pipeline is presented in the next figure. Moreover,
-in the figure is also possible to observe other execution orders that are feasible to execute this pipeline.
+in the figure is also possible to observe other execution orders that are feasible to execute this pipeline in the engine for workstation.
 
 ![image](_Images/dsl_fig1.png)
 
+In the engine for cloud, different steps of the pipeline can be  executed in different machines, it is only necessary to respect its depedencies, as it is shown in the next figure.
+
+
+![image](_Images/dsl_fig1_parallel.png)
 
 ### A pipeline used on ChiP-Seq analysis 
 
