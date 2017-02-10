@@ -15,7 +15,7 @@ Since a `Pipeline` is composed by the execution of one or more tools, it must be
 ```javascript  
 Pipeline "Github" "https://github.com/ngspipes/tools"{ 
 ```
-**Example 2.1: An example of a part of a pipeline specification, using a remote repository.**
+**Example 2.1: A partial pipeline specification, using a remote repository.**
 
 In the example of listing 2.1, "Github" is the repository type and "https://github.com/ngspipes/tools" is the location of the tool repository.
 The case of being a local repository is very similar, as it can be observed in Example 2.2.
@@ -23,7 +23,7 @@ The case of being a local repository is very similar, as it can be observed in E
 ```
 Pipeline "Local" "E:\ngspipes" {
 ```
-**Example 2.2: An example of a part of a pipeline specification, using a local repository.**
+**Example 2.2: A partial pipeline specification, using a local repository.**
 
 In the previous example, the tool repository is on the directory named as "ngspipes", found at drive "E:".
 Formally,  the pipeline must follow the grammar in Listing 2.1.
