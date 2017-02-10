@@ -33,7 +33,7 @@ If you have OSX and you you prefer the double click version to run the editor, i
 ![Figure 1](_Images/editor_fig1.png)
 
 
-**Figure 1**
+**Figure 4.1: Running a jar in a first time in OSX**
 
 Then, go to  "System Preferences" and choose "Security and Privacy"
 
@@ -41,7 +41,7 @@ Then, go to  "System Preferences" and choose "Security and Privacy"
 ![Figure 2](_Images/editor_fig2.png)
 
 
-**Figure 2**
+**Figure 4.2: Selecting System Preferences in OSX**
 
 Then select the button "Open anyway"
 
@@ -51,14 +51,14 @@ Then select the button "Open anyway"
 **Notice that depending on the MAC OS version, it may be necessary to unlock to make changes and to select the option "Allow apps downloaded from Anywhere"**
 
  
-**Figure 3**
+**Figure 4.3: Allowing to run the jar file in OSX**
  
  The initial GUI that appears from editor is the following:
  
 
 ![Figure 4](_Images/editor_fig4.png)
 
-**Figure 4**
+**Figure 4.4: Initial screen in Editor**
 
 In the following sections it will be explained how to use the editor. 
 Moreover, in the editor's menu, selecting `help` and then the menu item `about`, it is possible to find some tutorial videos to help to use NGSPipes Editor.
@@ -68,18 +68,18 @@ Moreover, in the editor's menu, selecting `help` and then the menu item `about`,
 When defining a new pipeline (we will explain how to define a new pipeline in the Section [5](#head5)),  the editor environment will appear similar to one of Figures 5 and 6 (it depends on the edition that is being performed). 
 
 ![Figure 5](_Images/editor_fig5.png)
-**Figure 5**
+**Figure 4.5:**
 
 ![Figure 6](_Images/editor_fig6.png)
 
-**Figure 6**
+**Figure 4.6:**
 
 
 The NGSPipes Editor is composed of 5 sections: utilities; repository; tools; commands; pipeline and menu bar.
 These sections are pointed out in Figure 7.
 ![Figure 7](_Images/editor_fig7.png)
 
-**Figure 7**
+**Figure 4.7:**
 
 The **utilities section** includes all the buttons for executing the utilities actions, such as saving the active pipeline, closing it and generate the final version, when in this last case the user is asked to define the input and output directory ((see Section [6](#head6) for more information on pipeline generation). There are also in this section similar buttons for applying these actions for more than one workflow at the same time. Moreover, it is also in this section that exists a button for creating a new pipeline (see Section [5](#head5) for more information).
 
@@ -102,7 +102,7 @@ In the version 1 of the Editor, there are four types that are supported, as depi
 
 ![Figure 8](_Images/editor_fig8.png)
 
-**Figure 8**
+**Figure 4.8:**
 
 The `Default` is a local repository that is included within the tool. To specify other local repositories, it is necessary to select the `Local` option and, with the `search button`, select the path to the repository. Instead, to specify a remote one, it is necessary to select one of the following options, `github or uribased`, depending on the type of the remote repository. For instance with the tools' repository example, namely https://github.com/ngspipes/tools, please select the option `github`, with the URL `https://github.com/ngspipes/tools`.
 
@@ -110,13 +110,13 @@ Then, it is possible to observe the **repository section** on Figure [9](#fig9).
 
 ![Figure 9](_Images/editor_fig9.png)
 
-**Figure 9**
+**Figure 4.9:**
 
 In the **repository section**, the user may explore all the tools that are available on the repository, as well as filter them by name. It is also possible to obtain the description of a tool if we place the mouse over the tool's logotype. Selecting a tool, will open the **tool section** (in Figure [5](#fig5), Velvet is selected and the tool section is at the bottom, centered), where is possible to navigate over all the commands available within that tool. In some cases, the tool has only one command, as for instance the Trimmomatic tool. It is also possible to obtain the description of each command similarly as done for obtaining the tool description. In these sections, the user may obtain more information about a given tool, command, input or output, only by selecting a given item of one of these sections with the right button of the mouse and selecting the Description option. This option opens a new window with all the information available on the repository, as depicted in Figure [10](#fig10).
 
 ![Figure 10](_Images/editor_fig10.png)
 
-**Figure 10**
+**Figure 4.10:**
 
 The other sections, namely the **pipeline** and **command** sections will be detailed in section [5](#head5).
 
@@ -126,7 +126,7 @@ In order to create a new pipeline, after selecting the ` tools' repository`, ple
 
 ![Figure 11](_Images/editor_fig11.png)
 
-**Figure 11**
+**Figure 4.11:**
 
 
 
@@ -134,9 +134,11 @@ After defining the directory where the pipeline is kept and the name of the pipe
 
 ![Figure 12](_Images/editor_fig12.png)
 
+**Figure 4:12**
+
 The pipeline creation generates a file with extension `.wf`. This file keeps all information of a pipeline within the editor, not only the commands as well as the visual positions of the pipeline within the editor.
 
-**Figure 12**
+
 
 The **pipeline section** has two panels, the _chain_ and the _order_ panel. 
 In the _chain_ panel, the user can add or remove commands as well as set arguments and chains. For instance, in (Figure [5](#fig5)) it was defined a chain between the `trimmomatic command` and the `velveth command` since the output file of the first one is an input file of the second one.
@@ -150,17 +152,17 @@ For defining the chain between two commands, it is necessary to drag the **blue 
 
 ![Figure 13](_Images/Editor_fig13.png)
 
-**Figure 13**
+**Figure 4.13:**
 
 Then it is necessary to select the **blue icon** and drag it to the command to which is to do the chain operation. After that, it will appear the following figure:
 
 ![Figure 14](_Images/editor_fig14.png)
-**Figure 14**
+**Figure 4.14:**
 
 Here it is necessary to select the output to be chained as an argument to the other tool. After that, it is necessary to click on the *blue icon* and the chain action will be set and a black arrow will appear between both tools (see next Figure).
 
 ![Figure 15](_Images/editor_fig15.png)
-**Figure 15**
+**Figure 4.15:**
 
 
 After setting the required arguments of all commands added to the pipeline and setting all the chains,
@@ -185,6 +187,7 @@ It is possible to have multiple loaded pipelines, but just one is active.
 
 ![Figure 16](_Images/editor_fig16.png)
 
+**Figure 4.16:**
 
 ## Error Reporting
 
@@ -194,15 +197,21 @@ The type of each argument must be one of the following: integer number; file; te
 
 ![Figure 17](_Images/editor_fig17.png)
 
+**Figure 4.17:**
+
 If the user does not set a compatible value to a required argument, the editor will also
 generate an error message to report that situation, when generating the pipeline specification (pressing the generate button). 
 
 ![Figure 18](_Images/editor_fig18.png)
 
+**Figure 4.18:**
+
 ## Multiple inputs
 
 The tools can produce multiple outputs. These tools also might require multiple inputs coming from different tools or the same tool. When the multiple inputs are from the same tool, NGSPipes supports it by adding a numbered label on the arrow.
 This functionality is depicted in the following figure:
-![Figure 18](_Images/editor_fig18.png)
+![Figure 18](_Images/editor_fig19.png)
+
+**Figure 4.19:**
 
 Notice that this label is only visible when one of the tools is selected.
