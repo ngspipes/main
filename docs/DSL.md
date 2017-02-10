@@ -9,28 +9,35 @@ The primitives of NGSPipes DSL are  `Pipeline`, `tool`, `command`, `argument` an
 
 ###  Pipeline
 
-Since a `Pipeline` is composed by the execution of one or more tools, it must be defined the tools repository, i.e., all the information necessary with respect to the available tools. To define this repository in the pipeline it is necessary to identify not only where it is stored, but also the type of storage (localy ou remotely, like github) to know how to process that information.
-As an example, consider the following part of a pipeline specification:
+Since a `Pipeline` is composed by the execution of one or more tools, it must be defined the tools repository, i.e., all the information necessary with respect to the available tools. To define this repository in the pipeline it is necessary to identify not only where it is stored, but also the type of storage (localy ou remotely, like github) to know how to process that information. In Example 2.1 is depicted a part of a pipeline specification.
 
- ```javascript  
+
+```javascript  
 Pipeline "Github" "https://github.com/ngspipes/tools"{ 
 ```
-In this case, "Github" is the repository type and "https://github.com/ngspipes/tools" is the location of the tool repository.
-The case of being a local repository is very similar. For instance,
+**Example 2.1: An example of a part of a pipeline specification, using a remote repository.**
+
+In the example of listing 2.1, "Github" is the repository type and "https://github.com/ngspipes/tools" is the location of the tool repository.
+The case of being a local repository is very similar, as it can be observed in Example 2.2.
 
 ```
 Pipeline "Local" "E:\ngspipes" {
 ```
+**Example 2.2: An example of a part of a pipeline specification, using a local repository.**
+
 In the previous example, the tool repository is on the directory named as "ngspipes", found at drive "E:".
-Formally,  the pipeline must follow the following grammar:
+Formally,  the pipeline must follow the grammar in Listing 2.1.
 
 ``pipeline: ’Pipeline’ repositoryType repositoryLocation ’{’ (tool)+ ’}’ ;``
 
-where `(tool)+` represents that a pipeline is composed by the execution of one or more tools (notice that, as will be further explained, the tool execution may include the execution of one or more commands).
+**Listing 2.1: Partial specification of the DSL grammar: pipeline specification grammar** 
+
+
+In Listing 2.1, `(tool)+` represents that a pipeline is composed by the execution of one or more tools (notice that, as will be further explained, the tool execution may include the execution of one or more commands).
 
 ### tool
 
-Each tool is specified in the pipeline by its name, its configuration file name (without extension) and by the set of commands within the tool that will be executed within this pipeline. For instance, in the next example the pipeline is composed only by one tool, which only includes a command.
+Each tool is specified in the pipeline by its name, its configuration file name (without extension) and by the set of commands within the tool that will be executed within this pipeline. For instance, in Example 2.3 the pipeline is composed only by one tool, which only includes a command.
 
 ```
 javascript
@@ -54,12 +61,14 @@ Pipeline "Github" "https://github.com/ngspipes/tools" {
    }
   }
 ```
-This tool configuration file name is "DockerConfig", _i.e._, it must exist in the tool repository "https://github.com/ngspipes/tools", within the tool information "https://github.com/ngspipes/tools/tree/master/Trimmomatic" (notice that this repository structure is directory based, as explained in https://github.com/ngspipes/tools/wiki), a configuration file named "DockerConfig", with JSON Format. This file must define a JSON object with the property `builder` set as "DockerConfig". In this case, this JSON file is https://github.com/ngspipes/tools/blob/master/Trimmomatic/DockerConfig.json.
+**Example 2.3: A pipeline specification composed only by one tool, including only one command.** 
+
+The tool configuration file name  in Listing 2.4 is "DockerConfig", _i.e._, it must exist in the tool repository "https://github.com/ngspipes/tools", within the tool information "https://github.com/ngspipes/tools/tree/master/Trimmomatic" (notice that this repository structure is directory based, as explained in https://github.com/ngspipes/tools/wiki), a configuration file named "DockerConfig", with JSON Format. This file must define a JSON object with the property `builder` set as "DockerConfig". In this case, this JSON file is https://github.com/ngspipes/tools/blob/master/Trimmomatic/DockerConfig.json.
 With this information together with the repository information, the environment for executing the Trimmomatic command is specified.
 
 ### command
 
-As mentioned before, there may exist a set of commands within the tool that should be executed within a pipeline. For instance, consider this following example:
+As mentioned before, there may exist a set of commands within the tool that should be executed within a pipeline. Example 2.4 depicts an example with this feature.
 
 ```javascript
 Pipeline "Github" "https://github.com/ngspipes/Repository" {
@@ -93,30 +102,39 @@ Pipeline "Github" "https://github.com/ngspipes/Repository" {
     }
   }
 ```
-In this example, the pipeline will run two tools, where the second one executes two commands of the Velvet tool, namely `velveth`and `velvetg`.
+**Example 2.4: A pipeline specification composed by more than one tool and more than one command.** 
 
-Therefore, the tools specification must follow the grammar:
+In example depicted in Example 2.4, the pipeline will run two tools, where the second one executes two commands of the Velvet tool, namely `velveth`and `velvetg`.
+
+Therefore, the tools specification must follow the grammar presented in Listing 2.2.
 
 ``tool: 'tool' toolName configurationName '{' (command)+ '}' ``
 
-where `(command)+` represents that there may exist set of commands with at least a command, within the tool that should be executed within a pipeline.
+**Listing 2.2:  Partial specification of the DSL grammar: tool specification grammar**
+
+In Listing 2.2 `(command)+` represents that there may exist set of commands with at least a command, within the tool that should be executed within a pipeline.
 
 For executing each command, it is necessary to identify its name, which is unique in the tool context and to set the values for each required parameters (optional parameters may not be specified). We refer the command parameters in NGSPipes language as  _arguments_, since we only specify in the pipeline the parameters which we have values to set. For instance,
 in the previous pipeline example, the argument `filename` of the command `velveth` has as value `-fastq`, _i.e._, the input file for this command has a FASTQ format.
 
-Thus, the command specification must follow the grammar:
+Thus, the command specification must follow the grammar in Listing 2.3.
 
 ``command : 'command' commandName '{' (argument | chain)+ '}' ``;
 
-where `(argument | chain)+`
+**Listing 2.3:  Partial specification of the DSL grammar: command specification grammar**
 
-represents that there may exist a list of arguments within this command as well as a list of chains. Chain is also a primitive in NGSPipes, as we will further explain in the subsection [1.5](#head15).
+
+In Listing 2.3  `(argument | chain)+`
+represents that there may exist a list of arguments within this command as well as a list of chains. Chain is also a primitive in NGSPipes, as we will further explain in the subsection _chain_.
 
 ### argument
 
-As defined in the previous example, the argument definition has the following syntax:
+As defined in the previous example, the argument definition has the syntax
+presented in Listing 2.4.
 
 ``argument : 'argument' argumentName argumentValue ``;
+
+**Listing 2.4: argument syntax.**
 
 For instance, in the previous pipeline specification the `format_file` is an argument for the `velveth` tool, namely:
 ```javascript
@@ -177,17 +195,23 @@ Pipeline "Github" "https://github.com/ngspipes/Repository" {
 }
 ```
 
-As it can be seen in these example, in command `blastx`, the argument `query` receives as value the file ``contigs_fa'', which is an output of the command \verb+velvetg+ of the tool `velvet` (notice that in this case, the name of the file is given internally by the command). 
+**Example 2.5: A pipeline specificaton using the chain primitive.**
+
+As it can be seen in Example 2.5, in command `blastx`, the argument `query` receives as value the file ``contigs_fa'', which is an output of the command \verb+velvetg+ of the tool `velvet` (notice that in this case, the name of the file is given internally by the command). 
 
 The primitive `chain` has a simplified version, which can be used when the output is from a the previous command in the pipeline specification. In this case, we only specify the name of the output file to chain with the given argument. As an example, we can see the argument `filename` of the `velveth` command chained with the output file, named as `outputFile`, of the  command `trimmomatic`. 
 
 A last version of the primitive `chain` is when the name of the tool can be omitted, but it is necessary to specify the name of the command, of the argument and also the output. This apply to cases where the chain occurs between two commands of the same tool.
 
-Thus, the chain specification must follow the grammar:
+Thus, the chain specification must follow the grammar depicted in Listing 2.5.
 
 ``chain : 'chain' argumentName ( ( toolName )? commandName)? outputName ``;
 
+**Listing 2.5:  Partial specification of the DSL grammar: chain specification grammar**
+
 ## Full NGSPipes DSL syntax
+
+In Listing 2.6 is depicted the full NGSPipes DSL grammar.
 
 ``pipeline: 'Pipeline' repositoryType repositoryLocation '{' (tool)+ '}' `` ;
 
@@ -231,11 +255,13 @@ Thus, the chain specification must follow the grammar:
 
 ``WS : [ \t\r\n]+ -> skip`` ;
 
+**Listing 2.6: Specification of the NGSPipes Full DSL grammar.**
+
 ## Examples
 
 ###  A pipeline used on epidemiological surveillance 
 
-
+In this section we present a pipeline used on epidemiological surveillance.
 
 ```
 Pipeline "Github" "https://github.com/ngspipes/tools" {
@@ -283,18 +309,24 @@ Pipeline "Github" "https://github.com/ngspipes/tools" {
   }
 }
 ```
+**Example 2.6: A pipeline used on epidemiological surveillance.**
 
-A visual representation of this pipeline is presented in the next figure. Moreover,
-in the figure is also possible to observe other execution orders that are feasible to execute this pipeline in the engine for workstation.
+A visual representation of the pipeline described in Example 2.6 is presented in the Figure 2.1. Moreover, in this figure is also possible to observe other execution orders that are feasible to execute this pipeline in the engine for workstation.
 
 ![image](_Images/dsl_fig1.png)
 
-In the engine for cloud, different steps of the pipeline can be  executed in different machines, it is only necessary to respect its depedencies, as it is shown in the next figure.
+**Figure 2.1: Visual representation of the execution, in the engine for workstation, of the pipeline described in Example 2.6.**
+
+In the engine for cloud, different steps of the pipeline can be  executed in different machines, it is only necessary to respect its depedencies, as it is shown in the Figure 2.2.
 
 
 ![image](_Images/dsl_fig1_parallel.png)
 
+**Figure 2.2: Visual representation of the execution, in the engine for cloud, of the pipeline described in Example 2.6.**
+
 ### A pipeline used on ChiP-Seq analysis 
+
+In this section we present a pipeline used on ChiP-Seq analysis.
 
 ```
 Pipeline "Github" "https://github.com/ngspipes/tools" {
@@ -335,6 +367,10 @@ Pipeline "Github" "https://github.com/ngspipes/tools" {
 	}
 }
 ```
+**Example 2.7: A pipeline used on ChiP-Seq analysis.**
+
 A visual representation of this pipeline is presented in the next figure.
 
 ![image](_Images/dsl_fig2.png)
+
+**Figure 2.3: Visual representation of the execution, in both engines, of the pipeline described in Example 2.6.**
