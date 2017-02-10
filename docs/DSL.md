@@ -374,3 +374,7 @@ A visual representation of this pipeline is presented in the next figure.
 ![image](_Images/dsl_fig2.png)
 
 **Figure 2.3: Visual representation of the execution, in both engines, of the pipeline described in Example 2.6.**
+
+### A pipeline using listing tools (for executing only with Engine for Cloud)
+
+### A pipeline using split and join tools (for executing only with Engine for Cloud)
