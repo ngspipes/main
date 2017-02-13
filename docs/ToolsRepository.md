@@ -255,19 +255,19 @@ The existing argumentsComposer are (name of the argumentComposer-> [correspondin
 12. trimmomatic -> [TRIMMOMATIC STYLE ArgCategory:arg:arg:arg]
 11. velvetG -> [VELVETG STYLE all arguments has format [name value] except output_directory that has format [value]]
 
-**Listing 3.3: Some arguments Composer included in the solution.**
+**Listing 3.3: Some argumentsComposer included in the repository support library.**
 
 
 
 ### Examples of the mapping of the arguments and output descriptions to command parameters.
 
-As we can see in the [Velvet tool manual](https://www.ebi.ac.uk/~zerbino/velvet/Manual.pdf), a simple execution of the `velvetg` command in the command line (without the NGSPipes System) after producing the executable with the make command is described in Example 3.6.
+As we can see in the [Velvet tool manual](https://www.ebi.ac.uk/~zerbino/velvet/Manual.pdf), a simple execution of the `velvetg` command in the command line (without the NGSPipes System) after producing the executable with the make command is described in Example 3.7.
 
 ` ./velvetg velvetDir -cov_cutoff 5`
 
-**Example 3.6: Executing velvetg command on the command line.**
+**Example 3.7: Executing velvetg command on the command line.**
 
-Therefore, the description of `velvetg` command, within the descriptor of `velvet` tool, must include two arguments description, namely, one for the directory argument and other for the option `_cov_cutoff`. As we can observe in `velvet` descriptor file (https://github.com/ngspipes/tools/blob/master/Velvet/Descriptor.json), the JSON object for defining the arguments of `velvetg` command starts with
+Therefore, the description of `velvetg` command, within the descriptor of `velvet` tool, must include two arguments descriptions, namely, one for the directory argument and other for the option `_cov_cutoff`. As we can observe in `velvet` descriptor file (https://github.com/ngspipes/tools/blob/master/Velvet/Descriptor.json), the JSON object for defining the arguments of `velvetg` command starts with the definitions depicted in Example 3.8.
 
 ```
 {
@@ -286,9 +286,9 @@ Therefore, the description of `velvetg` command, within the descriptor of `velve
                  AFTER tour bus or allow the system to infer it (default no removal)"
 },
 ```
-**Example 3.7:**
+**Example 3.8: Some velvetg arguments descriptions.**
 
-And, since the output directory produces output files the produced output is `directory_dependent` as we can see in section "Output descriptions" within this section, the JSON object for defining the outputs of `velvetg` command starts with
+And, since the output directory produces output files, the produced output is `directory_dependent` as we can see in section "Output descriptions" within this section, the JSON object for defining the outputs of `velvetg` command starts with the descriptions depicted in Example 3.9.
 
 ```
 "outputs" : [
@@ -308,7 +308,7 @@ And, since the output directory produces output files the produced output is `di
 },
 ```
 
-**Example 3.8:**
+**Example 3.9: Some output descriptions for velvetg.**
 
 The values of these arguments ( `velvetDir` and 5, respectively) will be set in the pipeline specification. For more information about the pipeline specification, please consult (https://github.com/ngspipes/dsl/wiki).
 
@@ -316,7 +316,7 @@ The values of these arguments ( `velvetDir` and 5, respectively) will be set in 
 Another example referred in this documentation is the Trimmomatic tool. As we can see in the
 [Trimmomatic manual](http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf),
 For single-ended data, one input and one output file are specified. The required processing steps (trimming, cropping, adapter clipping etc.) are specified as additional arguments after the input/output files.
-Thus, it appears in description how to execute this command
+Thus, it appears in description presented in Example 3.10 how to execute this command.
 
 ``` 
 java -jar <path to trimmomatic jar> SE 
@@ -324,10 +324,10 @@ java -jar <path to trimmomatic jar> SE
              <input> <output> <step 1> ... 
 ```             
 
-**Example 3.9:**
+**Example 3.10: Executing Trimmomatic in the command line for single-ended data.**
 
 
-For paired-end data, two input files, and 4 output files are specified, 2 for the 'paired' output where both reads survived the processing, and 2 for corresponding 'unpaired' output where a read survived, but the partner read did not. Thus, it appears in the description how to executed this command in this version
+For paired-end data, two input files, and 4 output files are specified, 2 for the 'paired' output where both reads survived the processing, and 2 for corresponding 'unpaired' output where a read survived, but the partner read did not. Thus, it appears in the description presented in Exampl 3.11 how to executed this command in this version.
 
 ```
 java -jar <path to trimmomatic.jar> PE 
@@ -337,7 +337,7 @@ java -jar <path to trimmomatic.jar> PE
           <paired output 2> <unpaired output 2> <step 1> ... 
 ```
 
-**Example 3.10:**
+**Example 3.11: Executing Trimmomatic in the command line for paired-ended data.**
 
 Thus, considering the SINGLE END DATA, a possible execution in the command line could be like the following
 
@@ -347,7 +347,7 @@ ERR406040.filtered.fastq ILLUMINACLIP:local/trimmomatic/adapters/TruSeq3-SE.fa:2
 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36 
 ```
 
-**Example 3.11:**
+**Example 3.12:**
 
 In this case the input file is `ERR406040.fastq` and the output file is ERR406040.filtered.fastq. Thus, in the Trimmomatic tool description, we have included as arguments the following:
 
@@ -377,7 +377,7 @@ In this case the input file is `ERR406040.fastq` and the output file is ERR40604
  "description" : "Specifies the path to the input file 2 of paired mode."
 },				
 ```
-**Example 3.12:**
+**Example 3.13:**
 
 In the case of Trimmomatic command (please notice that Trimmomatic tool has only one command, with the same name), since  both arguments `inputFile` and `outputFile` are only required in the SINGLE END data, their property `isRequired` was set to false.
 
@@ -420,7 +420,7 @@ With respect to the outputs, the Trimmomatic command description has the followi
 "argument_name" : "unpaired output 2"
 }
 ```
- **Example 3.13:**
+ **Example 3.14:**
   
 As mentioned before, in the arguments and outputs descriptions, the values to be set to the arguments are done in the pipeline specification, as can be seen in the example in https://github.com/ngspipes/dsl/wiki. Notice that the Trimmomatic outputs are all `file_dependent` which means that its value is also an argument and thus is set by the user in the pipeline specification.
 
@@ -492,7 +492,7 @@ Thus, a tool configuration is a JSON file with the following information: `name`
 }
 ```
 
-**Example 3.14:**
+**Example 3.15:**
 
 ##  Defining your own tool repository 
 
