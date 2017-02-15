@@ -356,7 +356,8 @@ purposes, where users can simulate a cluster. With this machine, pipelines can b
 of computational ressources or an account in a cloud provider. Thus our solution can be tested in this virtual
 machine or within a cloud provider, as described in the subsection "Install engine for cloud".
 
-Next figure describes the main components of this engine and their interactions.
+Next figure describes the main components of this engine and their interactions. More details on this engine can be found in this [report](https://gitlab.com/ngs4cloud/ngs4cloud/blob/36b53a7c40b07e5aac81c170f74b90d33bcdd4d6/docs/FinalReport.pdf).
+
 
 ![Figure 6](_Images/engine_fig6.png)
 
