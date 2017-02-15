@@ -347,9 +347,9 @@ ERR406040.filtered.fastq ILLUMINACLIP:local/trimmomatic/adapters/TruSeq3-SE.fa:2
 LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:36 
 ```
 
-**Example 3.12:**
+**Example 3.12: **
 
-In this case the input file is `ERR406040.fastq` and the output file is ERR406040.filtered.fastq. Thus, in the Trimmomatic tool description, we have included as arguments the following:
+In this case the input file is `ERR406040.fastq` and the output file is ERR406040.filtered.fastq. Thus, in the Trimmomatic tool description, we have included as arguments descriptions the ones described in Example 3.13.
 
 ```
 {
@@ -377,11 +377,12 @@ In this case the input file is `ERR406040.fastq` and the output file is ERR40604
  "description" : "Specifies the path to the input file 2 of paired mode."
 },				
 ```
-**Example 3.13:**
+**Example 3.13: Trimmonatic arguments.**
 
 In the case of Trimmomatic command (please notice that Trimmomatic tool has only one command, with the same name), since  both arguments `inputFile` and `outputFile` are only required in the SINGLE END data, their property `isRequired` was set to false.
 
-With respect to the outputs, the Trimmomatic command description has the following:
+With respect to the outputs, the Trimmomatic command description has 
+the outputs described as in Example 3.14.
 
 ```
 {
@@ -420,7 +421,7 @@ With respect to the outputs, the Trimmomatic command description has the followi
 "argument_name" : "unpaired output 2"
 }
 ```
- **Example 3.14:**
+ **Example 3.14: Outputs description of Trimmomatic command.**
   
 As mentioned before, in the arguments and outputs descriptions, the values to be set to the arguments are done in the pipeline specification, as can be seen in the example in https://github.com/ngspipes/dsl/wiki. Notice that the Trimmomatic outputs are all `file_dependent` which means that its value is also an argument and thus is set by the user in the pipeline specification.
 
@@ -430,12 +431,12 @@ As mentioned before, in the arguments and outputs descriptions, the values to be
 
 ## Tool configurators
 
-The repository must also include at least one configurator for each tool. A  _tool configurator_ is responsible for adding all the information needed to define the execution context for executing the tool and its respective commands. Each _tool configurator_  for each tool is given as a JSON file. Thus, for knowing all the available configurators for a specific tool, it exists, for each tool, a JSON file that lists all the JSON files that correspond to tool configurators for that tool. In our repository example and thus in our support implementation, these files appear at the root of each tool directory ( please, see the a [tool directory example](https://github.com/ngspipes/tools/tree/master/Blast)). 
-For instance, in `Blast` tool, it can be observed that there is only a tool configurator ( https://github.com/ngspipes/tools/blob/master/Blast/configurators.json), and the same is given as (https://github.com/ngspipes/tools/blob/master/Blast/DockerConfig.json).
+The repository must also include at least one configurator for each tool. A  _tool configurator_ is responsible for adding all the information needed to define the execution context for executing the tool and its respective commands. Each _tool configurator_  for each tool is given as a JSON file. Thus, for knowing all the available configurators for a specific tool, it exists, for each tool, a JSON file that lists all the JSON files that correspond to tool configurators for that tool. In our repository example and thus in our support implementation, these files appear at the root of each tool directory (please, see the a [tool directory example](https://github.com/ngspipes/tools/tree/master/Blast)). 
+For instance, in `Blast` tool, it can be observed that there is only a tool configurator (https://github.com/ngspipes/tools/blob/master/Blast/configurators.json), and the same is given as (https://github.com/ngspipes/tools/blob/master/Blast/DockerConfig.json).
 
 
 ###  List of configurators of a tool
-For each tool, the list of the tool configurators that are available in a given repository are described in a JSON format in a file designed by `Configurators.json`. The format of the file that lists all the tool configurators files  is given by the following JSON schema:
+For each tool, the list of the tool configurators that are available in a given repository are described in a JSON format in a file designed by `Configurators.json`. The format of the file that lists all the tool configurators files  is given by JSON schema defined in Listing 3.4.
 
 ```
 "$schema": "http://json-schema.org/draft-04/schema#",
@@ -450,11 +451,11 @@ For each tool, the list of the tool configurators that are available in a given 
   }
 ```
 
-**Listing 3.4:**
+**Listing 3.4: JSON schema for declaring the filenames of the configurators  for a given tool.**
 
 ###  Tool Configurators
 
-As depicted in the previous schema, the file `Configurators.json` includes all the name of the files that corresponds to possible configurators for a given tool. Thus, for each file name included in `onfigurators.json` it exists a corresponding JSON file with the specific configuration. In our repository example and thus in our support implementation, the files for each specific configuration appears at the root of each tool directory ( please, see the a [tool directory example](https://github.com/ngspipes/tools/tree/master/Blast)). The format of this file is given by the following JSON schema:
+As depicted in the previous schema, the file `Configurators.json` includes all the name of the files that corresponds to possible configurators for a given tool. Thus, for each file name included in `onfigurators.json` it exists a corresponding JSON file with the specific configuration. In our repository example and thus in our support implementation, the files for each specific configuration appears at the root of each tool directory ( please, see the a [tool directory example](https://github.com/ngspipes/tools/tree/master/Blast)). The format of this file is given by the JSON schema defined in Listing 3.5.
 
 ```
 {
@@ -473,7 +474,7 @@ As depicted in the previous schema, the file `Configurators.json` includes all t
 }
 ```
 
-**Listing 3.5:**
+**Listing 3.5: JSON schema for declarung each tool configurator.**
 
 Thus, a tool configuration is a JSON file with the following information: `name` of the file where is defined the execution context execution context (ex: `DockerConfig`); `builder` name of the execution context (ex: `Docker`);
 `setup}`, i.e., the scripts that are necessary to execute to assure the existence of the execution context; and the `uri` where the tool is. Next example describes that the tool is on a docker image and thus is necessary to install docker in the execution context.
@@ -492,7 +493,7 @@ Thus, a tool configuration is a JSON file with the following information: `name`
 }
 ```
 
-**Example 3.15:**
+**Example 3.15: Example of a tool configurator for the blast tool.**
 
 ##  Defining your own tool repository 
 
@@ -514,4 +515,16 @@ For defining a new repository in our own computer we have first to create a dire
 After log-in in github, create a new repository (ex: named as `tools`). The endpoint of this new repository will the tool repository.
  Then, after cloning your repository to your computer, it will appear a directory named as `tools`. Then, do the same steps of  a section "Define a new repository locally"  within this subsection. After that, synchronize the repository.
 
-## Tool Types (available for engine for cloud)
+## Tool Types
+
+For supporting data partitioning in the engine for cloud, which will allow to executing in multiple machines partitions of data at the same time and thus increase process efficiency, the ´tool type´should be specified in a tool descriptor. Notice that this feature has only impact in the engine for cloud solution.  There are four different tool types:
+
+* data processing tools, _i.e._, **unit**;
+* listing tools, _i.e._, **splitting**; 
+* splitting tools _i.e._, **joining**; 
+* joining tools _i.e._, **listing**.
+Unlike unit processing tools, where each command is mapped into one task, a splitting command within a splitting tool generates one task corresponding to the splitting of the file plus N tasks per command, where N is the number of partitions of the file whereas each task processes a partition of the file.Data partitioning allows users to work with and process multiple files having to specify each command only once, while treating the files like a single file. It means that when users split a file in ten, for instance, they do not have to include the same tool ten times in the pipeline for every partition: the analyser will do that for them.
+
+![image](_Images/tools_fig1.png)
+
+**Figure 3.1 Splitting and Joining tools example.**
