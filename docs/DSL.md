@@ -378,6 +378,12 @@ A visual representation of this pipeline is presented in the next figure.
 
 ### A pipeline using listing tools (for executing only with Engine for Cloud)
 
+A specific use of NGS data in public health is the determination of the relationship between samples potentially associated with a foodborne pathogen outbreak. This relationship can be determined from the phylogenetic analysis of a DNA sequence alignment containing only variable positions, which we refer to as a SNP matrix. The applications of such a matrix include inferring a phylogeny for systematic studies and determining within traceback investigations whether a clinical sample is significantly different from environmental/product samples.
+
+This case study is a pipeline which combines all the steps necessary to construct a reference-based SNP matrix from an NGS sample data set.The pipeline starts with the mapping of NGS reads to a reference genome using Bowtie2, then it continues with the processing of those mapping (BAM) files using SAMtools, identification of variant sites using VarScan3, and ends with the production of a SNP matrix using custom Python scripts (calling of SNPs at each variant site, combining the SNPs into a SNP matrix). The Python scripts are reused from the _CFSAN SNP Pipeline: an automated method for constructing SNP matrices from next-generation sequence data. PeerJ Computer Science 1:e20 https://doi.org/10.7717/peerj-cs.20._
+As it can be observed in this data set, there are four samples, whose dataflow process is more detailed in the [documentation page](http://snp-pipeline.readthedocs.io/en/latest/dataflow.html) of this pipeline.
+
+
 ```
 Pipeline "Github" "https://github.com/Vacalexis/tools" {
 	tool "snp-pipeline" "DockerConfig" {
@@ -503,4 +509,8 @@ Pipeline "Github" "https://github.com/Vacalexis/tools" {
 
 ![image](_Images/dsl_fig3.jpeg)
 
+**Figure 2.4: Figure from Davis S, Pettengill JB, Luo Y, Payne J, Shpuntoff A, Rand H, Strain E. (2015) CFSAN SNP Pipeline: an automated method for constructing SNP matrices from next-generation sequence data. PeerJ Computer Science 1:e20 https://doi.org/10.7717/peerj-cs.20**
+
 ### A pipeline using split and join tools (for executing only with Engine for Cloud)
+
+This pileline is similar to the previous one but, instead of have the samples distributed in distinct files, they are concatenated on the same file by a separator character.
