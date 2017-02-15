@@ -328,6 +328,7 @@ In the engine for cloud, different steps of the pipeline can be  executed in dif
 
 In this section we present a pipeline used on ChiP-Seq analysis.
 
+
 ```
 Pipeline "Github" "https://github.com/ngspipes/tools" {
 	tool "Bowtie2" "DockerConfig" {
@@ -376,5 +377,130 @@ A visual representation of this pipeline is presented in the next figure.
 **Figure 2.3: Visual representation of the execution, in both engines, of the pipeline described in Example 2.6.**
 
 ### A pipeline using listing tools (for executing only with Engine for Cloud)
+
+```
+Pipeline "Github" "https://github.com/Vacalexis/tools" {
+	tool "snp-pipeline" "DockerConfig" {
+		command "create_sample_dirs" {
+			argument "-d" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/samples/*"
+			argument "--output" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/sampleDirectories.txt"
+		}
+	}
+
+	tool "Bowtie2" "DockerConfig" {
+		command "bowtie2-build" {
+	  		argument "reference_in" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/reference/lambda_virus.fasta"
+	  		argument "bt2_base" "reference"
+		}
+		command "bowtie2" {
+	  		argument "-p" "1"
+	  		argument "-q" "-q"
+	  		argument "-x" "reference"
+	  		argument "-1" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/samples/sample1/sample1_1.fastq"
+	 		argument "-2" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/samples/sample1/sample1_2.fastq"
+	  		argument "-S" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/reads1.sam"
+		}
+		command "bowtie2" {
+	  		argument "-p" "1"
+	  		argument "-q" "-q"
+	  		argument "-x" "reference"
+	  		argument "-1" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/samples/sample2/sample2_1.fastq"
+	  		argument "-2" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/samples/sample2/sample2_2.fastq"
+	  		argument "-S" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/reads2.sam"
+		}
+		command "bowtie2" {
+	  		argument "-p" "1"
+	  		argument "-q" "-q"
+	  		argument "-x" "reference"
+	  		argument "-1" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/samples/sample3/sample3_1.fastq"
+	  		argument "-2" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/samples/sample3/sample3_2.fastq"
+	  		argument "-S" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/reads3.sam"
+		}
+		command "bowtie2" {
+	  		argument "-p" "1"
+	 		argument "-q" "-q"
+	 		argument "-x" "reference"
+			argument "-1" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/samples/sample4/sample4_1.fastq"
+			argument "-2" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/samples/sample4/sample4_2.fastq"
+	  		argument "-S" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/reads4.sam"
+		}
+	
+	}
+	tool "Listing" "DockerConfig" {
+		command "startListing" {
+			argument "referenceName" "reads.sam"
+			argument "filesList" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/reads1.sam snp-pipeline-master/snppipeline/data/lambdaVirusInputs/reads2.sam snp-pipeline-master/snppipeline/data/lambdaVirusInputs/reads3.sam snp-pipeline-master/snppipeline/data/lambdaVirusInputs/reads4.sam"
+		}
+	}
+	tool "Samtools" "DockerConfig" {
+  
+    		command "view" {
+	  		argument "-b" "-b"
+	  		argument "-S" "-S"
+	  		argument "-F" "4"
+	  		argument "-o" "reads.unsorted.bam"
+	  		argument "input" "reads.sam"
+		}
+    		command "sort" {
+	  		argument "-o" "reads.sorted.bam"
+	  		argument "input" "reads.unsorted.bam"
+		}
+		command "mpileup" {
+	  		argument "--fasta-ref" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/reference/lambda_virus.fasta"
+	  		argument "input" "reads.sorted.bam"
+	  		argument "--output" "reads.pileup"
+		}
+	}
+	tool "VarScan" "DockerConfig" {
+  		command "mpileup2snp" {
+	  		argument "mpileupFile" "reads.pileup"
+	  		argument "--min-var-freq" "0.90"
+	  		argument "--output-vcf" "1"
+	  		argument "output" "var.flt.vcf"
+		}
+	}
+	tool "Listing" "DockerConfig" {
+		command "stopListing" {
+			argument "referenceName" "var.flt.vcf"
+			argument "destinationFiles" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/samples/sample1/var.flt.vcf snp-pipeline-master/snppipeline/data/lambdaVirusInputs/samples/sample2/var.flt.vcf snp-pipeline-master/snppipeline/data/lambdaVirusInputs/samples/sample3/var.flt.vcf snp-pipeline-master/snppipeline/data/lambdaVirusInputs/samples/sample4/var.flt.vcf"
+		}
+	}
+	tool "snp-pipeline" "DockerConfig" {
+		command "create_snp_list" {
+	  		argument "--vcfname" "var.flt.vcf"
+	  		argument "--output" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/snplist.txt"
+	  		argument "sampleDirsFile" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/sampleDirectories.txt"
+		}
+	}
+	tool "Listing" "DockerConfig" {
+		command "restartListing" {
+			argument "referenceName" "reads.pileup"
+		}
+	}
+	tool "snp-pipeline" "DockerConfig" {
+		command "call_consensus" {
+	 		argument "--snpListFile" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/snplist.txt"
+	  		argument "--output" "consensus.fasta"
+	  		argument "--vcfFileName" "consensus.vcf "
+	  		argument "allPileupFile" "reads.pileup"
+		}
+	}
+	tool "Listing" "DockerConfig" {
+		command "stopListing" {
+			argument "referenceName" "consensus.fasta"
+			argument "destinationFiles" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/samples/sample1/consensus.fasta snp-pipeline-master/snppipeline/data/lambdaVirusInputs/samples/sample2/consensus.fasta snp-pipeline-master/snppipeline/data/lambdaVirusInputs/samples/sample3/consensus.fasta snp-pipeline-master/snppipeline/data/lambdaVirusInputs/samples/sample4/consensus.fasta"
+		}
+	}
+	tool "snp-pipeline" "DockerConfig" {
+		command "create_snp_matrix" {
+	  		argument "sampleDirsFile" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/sampleDirectories.txt"
+	  		argument "--consFileName" "consensus.fasta"
+	  		argument "--output" "snp-pipeline-master/snppipeline/data/lambdaVirusInputs/snpma.fasta"
+		}
+	}
+}
+```
+
+![image](_Images/dsl_fig3.jpeg)
 
 ### A pipeline using split and join tools (for executing only with Engine for Cloud)
