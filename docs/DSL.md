@@ -262,6 +262,10 @@ In Listing 2.6 is depicted the full NGSPipes DSL grammar.
 ###  A pipeline used on epidemiological surveillance 
 
 In this section we present a pipeline used on epidemiological surveillance.
+The aim is to characterize bacterial strains through allelic profiles . When sequencing a bacterial strain by paired end methods with desired depth of coverage of 100x (in average each position in the genome will be covered by 100 reads), the output from the sequencer will be two FASTQ files containing the reads. Each read typically will have 90-250 nucleotides length, using Illumina technology. The first data processing step is to trim the reads for removing the adapters used in the sequencing process and any tags used to identify the experiment in a run.
+
+In de novo assembly, software such as Velvet is used to obtain a draft genome composed of contigs, longer DNA sequences resulting from assembling multiple reads. The draft genome can be compared to databases of gene alleles for multiple loci using BLAST. Given BLAST results we can create an allelic profile characterizing the strain.
+
 
 ```
 Pipeline "Github" "https://github.com/ngspipes/tools" {
@@ -311,7 +315,7 @@ Pipeline "Github" "https://github.com/ngspipes/tools" {
 ```
 **Example 2.6: A pipeline used on epidemiological surveillance.**
 
-A visual representation of the pipeline described in Example 2.6 is presented in the Figure 2.1. Moreover, in this figure is also possible to observe other execution orders that are feasible to execute this pipeline in the engine for workstation.
+A visual representation of this pipeline described in Example 2.6 is presented in the Figure 2.1. Moreover, in this figure is also possible to observe other execution orders that are feasible to execute this pipeline in the engine for workstation.
 
 ![image](_Images/dsl_fig1.png)
 
@@ -326,7 +330,8 @@ In the engine for cloud, different steps of the pipeline can be  executed in dif
 
 ### A pipeline used on ChiP-Seq analysis 
 
-In this section we present a pipeline used on ChiP-Seq analysis.
+In this section we present a pipeline used on ChiP-Seq analysis. This 
+ pipeline includes mapping with bowtie2, converting the output to bam format, sorting the bam file, creating a bam index file, running flagstat command, and removing duplicates with picard. So, this pipeline can be used in a ChiP-Seq pipeline that uses the resulting bam file for peak calling and creating heatmaps. Since those steps are generic that can be used for ATAC-Seq analysis too.  
 
 
 ```
@@ -513,4 +518,4 @@ Pipeline "Github" "https://github.com/Vacalexis/tools" {
 
 ### A pipeline using split and join tools (for executing only with Engine for Cloud)
 
-This pileline is similar to the previous one but, instead of have the samples distributed in distinct files, they are concatenated on the same file by a separator character.
+This pipeline is similar to the previous one but, instead of have the samples distributed in distinct files, they are concatenated on the same file by a separator character.
