@@ -19,3 +19,6 @@
 [submodule "jfx-workflows"]
 	path = jfx-workflows
 	url = https://github.com/ngspipes/WorkflowFX.git
+[submodule "4cloud"]
+	path = 4cloud
+	url = https://gitlab.com/ngs4cloud/ngs4cloud
