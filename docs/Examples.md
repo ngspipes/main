@@ -1,6 +1,7 @@
 # Examples
 
-##  A pipeline used on epidemiological surveillance 
+## A pipeline used on epidemiological surveillance
+
 
 In this section we present a pipeline used on epidemiological surveillance.
 The aim is to characterize bacterial strains through allelic profiles . 
@@ -22,9 +23,9 @@ Pipeline "Github" "https://github.com/ngspipes/tools" {
     command "trimmomatic" {
       argument "mode" "SE"
       argument "quality" "-phred33"
-      argument "inputFile" "ERR406040.fastq"
+      argument "inputFile" "study1/ERR406040.fastq"
       argument "outputFile" "ERR406040.filtered.fastq"
-      argument "fastaWithAdaptersEtc" "adapters/TruSeq3-SE.fa"
+      argument "fastaWithAdaptersEtc" "study1/TruSeq3-SE.fa"
       argument "seed mismatches" "2"
       argument "palindrome clip threshold" "30"
       argument "simple clip threshold" "10"
@@ -52,7 +53,7 @@ Pipeline "Github" "https://github.com/ngspipes/tools" {
       argument "-dbtype" "prot"
       argument "-out" "allrefs"
       argument "-title" "allrefs"
-      argument "-in" "allrefs.fna.pro"
+      argument "-in" "study1/allrefs.fna.pro"
     }
     command "blastx" {
       chain "-db" "-out"
@@ -74,10 +75,210 @@ to execute this pipeline in the engine for workstation.
 
 In the engine for cloud, different steps of the pipeline can be  executed in different machines, it is only necessary to respect its depedencies, as it is shown in the Figure 2.2.
 
-
 ![image](_Images/dsl_fig1_parallel.png)
 
 **Figure 6.2: Visual representation of the execution, in the engine for cloud, of the pipeline described in Example 6.1.**
+
+**Input data is available [here](https://www.dropbox.com/s/h8e8t3prt9f0gq3/study1.zip?dl=0).**
+
+### Running this example in Engine for workstation
+
+**Note** Please, be sure that the Engine for Workstation is already installed. For this, follow the steps that are in section:
+
+``Engine->Engine for Workstation-> Install engine for workstation.``
+
+
+Since the engine for workstation is provided as a console application or a graphical user interface application, we will describe how to do with the console application (for more information on how to user the graphical user interface, please look at the section: ``Engine->Engine for Workstation-> Run engine for workstation.``
+
+* After the installation, you should have the following tree file:
+
+```
+  WD
+    |-- engine-1.0\
+       |-- NGSPipesEngineExecutor\ 
+          |-- NGSPipesEngineExecutor.vbox
+          |-- NGSPipesEngineExecutor.vdi
+       |-- bin\
+          |-- engine        (CUI OSX/Linux run script)
+          |-- engine.bat    (CUI Window run script)
+          |-- engine-ui     (GUI OSX/Linux run script)
+          |-- engine-ui.bat (GUI Window run script)
+       |-- lib\
+          |-- ...
+    |-- (other files, ...)
+
+```
+* Download the data available [here](https://www.dropbox.com/s/h8e8t3prt9f0gq3/study1.zip?dl=0) 
+
+* After unzipping, the directory content look like, for instance,
+
+```
+/home/ngspipes/study1
+   |-- allrefs.fna.pro 
+   |-- ERR406040.fastq
+   |-- NexteraPE-PE.fa
+   |-- TruSeq2-PE.fa
+   |-- TruSeq2-SE.fa   
+   |-- TruSeq3-SE.fa
+   |-- TruSeq3-PE-2.fa
+   |-- TruSeq3-PE.fa
+   |-- TruSeq3-SE.fa 
+```
+* Create a file  ```casestudy1.pipes```(```.pipes```is the extension containing the pipeline previously described in Figure 6.1. Assume that, on the following
+```casestudy1.pipes``` is inside the directory ```study1```.
+
+* Create the `outputs` directory (`/home/ngspipes/outputs`)
+* Execute the *engine* at your working directory using the following command line:
+
+##### Windows
+``c:\ngspipes>engine-1.0\bin\engine.bat -in c:\ngspipes\study1 -out c:\ngspipes\outputs -pipes c:\ngspipes\casestudy1.pipes``
+
+##### OSX/Linux
+``ngs@server:/home/ngspipes$engine-1.0/bin/engine -in /home/ngspipes/inputs -out /home/ngspipes/outputs -pipes /home/ngspipes/casestudy1.pipes``
+
+##### Example and description of output messages
+
+Initial steps of the output will look like this:
+
+```
+Loading engine directories
+Loading engine resources
+Using classpath C:/Users/user/NGSPipes/Engine/dsl-1.0.jar;
+               C:/Users/user/NGSPipes/Engine/repository-1.0.jar
+Getting engine requirements
+Getting clone engine
+Clonning engine
+...... Clonning engine
+...... Clonning engine
+...... Clonning engine
+...... Clonning engine
+...... Clonning engine
+...... Clonning engine
+Configurating engine
+Starting execute engine
+Booting engine and installing necessary packages
+...
+```
+
+Note that the cloning step only happens in the first execution of the engine. On the other hand, when a tool is used for the first in any *pipeline*, the engine will automatically download and install the corresponding Docker image. An example of output for when this is necessary is presented for the *Trimmomatic* tool:
+
+```
+...
+TRACE    :: STARTED ::
+TRACE   Running -> Step : 1 Tool : Trimmomatic Command : trimmomatic
+INFO    Executing : sudo docker run -v /home/ngspipes/Inputs/:/shareInputs/:rw -v 
+                            /home/ngspipes/Outputs/:/shareOutputs/:rw  
+                        ngspipes/trimmomatic0.33 java -jar trimmomatic-0.33.jar SE 
+                        -phred33 /shareInputs/ERR406040.fastq /shareOutputs
+                        ERR406040.filtered.fastq  
+                        ILLUMINACLIP:/shareInputs/adapters/TruSeq3-SE.fa:2:30:10
+                        SLIDINGWINDOW:4:15 LEADING:3 TRAILING:3   MINLEN:36
+INFO    Unable to find image 'ngspipes/trimmomatic0.33:latest' locally
+INFO    latest: Pulling from ngspipes/trimmomatic0.33
+INFO    511136ea3c5a: Pulling fs layer
+INFO    e977d53b9210: Pulling fs layer
+INFO    c9fa20ecce88: Pulling fs layer
+...
+INFO    6cf3f4911f80: Download complete
+INFO    Digest: sha256:44f1dea760903cdce1d75c4c9b2bd37803be2e0fbbb9e960cd8ff27048cbb997
+INFO    Status: Downloaded newer image for ngspipes/trimmomatic0.33:latest
+INFO    TrimmomaticSE: Started with arguments: -phred33 /shareInputs/ERR406040.fastq 
+                            / shareOutputs/ERR406040.filtered.fastq 
+                            ILLUMINACLIP:/shareInputs/adapters/TruSeq3-SE.fa:2:30:10 
+                            SLIDINGWINDOW:4:15 LEADING:3 TRAILING:3 MINLEN:36
+...
+```
+
+Note that this tool was previously *dockerized* by the NGSPipes team. For other tools, such as Velvet or Blast, there is already public Docker images which the example pipeline uses. 
+
+When the execution finish, the following files will be at the working directory:
+
+```
+home/ngspipes/outputs
+   |-- allrefs.phr
+   |-- allrefs.pin
+   |-- allrefs.psq
+   |-- blast.out
+   |-- filtered.fastq
+   |-- velvetdir/
+      |-- Log
+      |-- Roadmaps
+      |-- Sequences
+      |-- contigs.fa
+      |-- LastGrpah
+      |-- stats.txt
+```
+
+### Running this example in Engine for Cloud
+
+**Note** Please, be sure that the Engine for Cloud is already installed. For this, follow the steps that are in section:
+
+``Engine->Engine for Cloud-> Install engine for cloud.``
+
+After the installlation, you should have the following tree file:
+
+```
+  WorkingDirectory
+    |-- Analyser\
+       |-- ngs4cloud-analyser-1.0-SNAPSHOT\ 
+          |-- bin
+              |--ngs4cloud-analyser
+              |--ngs4cloud-analyser.bat (CUI Window run script)
+    |-- Monitor\
+       |-- monitor.jar         
+    |-- (other files,...)
+```
+* **Input data is available [here](https://www.dropbox.com/s/h8e8t3prt9f0gq3/study1.zip?dl=0).**, but is not necessary to download. Input data in Engine for Cloud engine is always passed as an URI.
+
+* Create a file  ```casestudy1.pipes```(```.pipes```is the extension containing the pipeline previously described in Figure 6.1. Assume that, on the following,
+```casestudy1.pipes``` is inside the directory ```ngs4cloud-analyser-1.0-SNAPSHOT```.
+
+* Start by execution the analyser tool, in order to produce an file with ```json```extension. 
+
+##### OSX/Linux
+```
+ngs@server:ngs4cloud-analyser-1.0-SNAPSHOT$ ./bin/ngs4cloud-analyser analyse 
+    -pipes casestudy1.pipes 
+    -ir ir1.json 
+    -input https://www.dropbox.com/s/h8e8t3prt9f0gq3/study1.zip?dl=0 
+    -outputs blast.out velvetdir/contigs.fa
+```
+* This execution will produce the file ```ir1.json```.
+
+* Then, copy the ```ir1.json``` inside to directory ```Monitor```
+
+* Before executing the Monitor, please assure that the Virtual Machine with the cluster image given for test purposes is lauched and correctly settled (please, see the section 
+
+```
+Engine->Engine for cloud->
+    Install the engine for cloud -> Install the monitor
+```
+* Launch the pipeline into the cluster through the monitor command
+
+```
+ngs@server:Monitor$ java -jar monitor.jar launch ir1.json
+```
+* The previous command with generate a pipeline ```id```. Assume in this example that the id is 1.
+
+* Consult the status of the pipeline by its id
+
+```
+ngs@server:Monitor$ java -jar monitor.jar status 1
+```
+
+* After pipeline is finished, it is possible to download its results from the cluster to a previously defined directory inside the ```Monitor```directory. 
+
+```
+ngs@server:Monitor$ java -jar monitor.jar outputs 1 resultsDirectory
+```
+ 
+* ```resultsDirectory``` is the directory that contains a copy of the outputs that where previously specified by the analyser that should be copied; ```1``` is the pipeline ```ìd```
+
+For more information about the `analyser`  and `monitor` commands and its parameters, please see section
+
+```
+Engine->Engine for cloud->
+    Run the engine for cloud ```
 
 ## A pipeline used on ChiP-Seq analysis 
 
@@ -132,7 +333,11 @@ A visual representation of this pipeline is presented in the next figure.
 
 **Figure 6.2: Visual representation of the execution, in both engines, of the pipeline described in Example 6.2.**
 
-## A pipeline using listing tools (for executing only with Engine for Cloud)
+### Running this example in Engine for workstation
+
+### Running this example in Engine for Cloud
+
+## A pipeline using listing tools 
 
 A specific use of NGS data in public health is the determination of the relationship between samples potentially
  associated with a foodborne pathogen outbreak. This relationship can be determined from the phylogenetic analysis 
@@ -276,6 +481,8 @@ Pipeline "Github" "https://github.com/Vacalexis/tools" {
 
 **Figure 6.3: Figure from Davis S, Pettengill JB, Luo Y, Payne J, Shpuntoff A, Rand H, Strain E. (2015) CFSAN SNP Pipeline: an automated method for constructing SNP matrices from next-generation sequence data. PeerJ Computer Science 1:e20 https://doi.org/10.7717/peerj-cs.20**
 
-## A pipeline using split and join tools (for executing only with Engine for Cloud)
+### Running this example in Engine for Cloud
 
-This pipeline is similar to the previous one but, instead of have the samples distributed in distinct files, they are concatenated on the same file by a separator character.
+[//]: # ( ##A pipeline using split and join tools (for executing only with Engine for Cloud) )
+
+[//]: # (This pipeline is similar to the previous one but, instead of have the samples distributed in distinct files, they are concatenated on the same file by a separator character.)

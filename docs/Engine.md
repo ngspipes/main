@@ -493,8 +493,7 @@ monitor tool.
 
 The command line tool has the following _optional_ parameters :
 
-- ```-outputs``` $space_separated_list_of_outputs. When not specified, the analyser will specify in the IR file
-- that all pipeline outputs should be downloaded at the end of monitor execution.
+- ```-outputs``` $space_separated_list_of_outputs.
 
 
 **Example**
