@@ -277,8 +277,7 @@ ngs@server:Monitor$ java -jar monitor.jar outputs 1 resultsDirectory
 For more information about the `analyser`  and `monitor` commands and its parameters, please see section
 
 ```
-Engine->Engine for cloud->
-    Run the engine for cloud 
+Engine->Engine for cloud->Run the engine for cloud 
 ```
 
 ## A pipeline used on ChiP-Seq analysis 
