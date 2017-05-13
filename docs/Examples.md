@@ -278,7 +278,8 @@ For more information about the `analyser`  and `monitor` commands and its parame
 
 ```
 Engine->Engine for cloud->
-    Run the engine for cloud ```
+    Run the engine for cloud 
+```
 
 ## A pipeline used on ChiP-Seq analysis 
 
