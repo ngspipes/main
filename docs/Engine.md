@@ -395,7 +395,7 @@ To run the **monitor (without the virtual machine that we supply for testing)** 
 
 To deploy this in your system:
  
- -  Create a new directory named Analyser and download the [jar](http://tinyurl.com/h48zskc) to there.
+ -  Create a new directory named Analyser and download the [executable](http://pwp.net.ipl.pt/cc.isel/cvaz/NGSPipes/ngs4cloud-analyser-1.0-SNAPSHOT.zip) to there.
  
  
 #### Install the monitor
@@ -475,7 +475,8 @@ This a regular Java application package as a JAR file. To run, open a terminal a
 at the working directory.
 
 ```
-user@machine:/home/workingDirectory$ java -jar analyser.jar analyse <mandatory arguments> <optional arguments>
+user@machine:/home/workingDirectory$  ./bin/ngs4cloud-analyser analyse 
+ analyse <mandatory arguments>
 ```
 
 
@@ -491,8 +492,6 @@ This file must be a ```.pipes``` extension file, where the pipeline is written u
 monitor tool.
 - ```-input``` The URI with the location of the inputs for the pipeline.
 
-The command line tool has the following _optional_ parameters :
-
 - ```-outputs``` $space_separated_list_of_outputs.
 
 
@@ -501,7 +500,7 @@ The command line tool has the following _optional_ parameters :
 Here is an example:
 
 ```
-java -jar analyser.jar analyse -pipes ./pipelines/pipeline.pipes 
+./bin/ngs4cloud-analyser analyse -pipes ./pipelines/pipeline.pipes 
              -ir ./ir/ir.json 
              -input https://github.com/CFSAN-Biostatistics/snp-pipeline/archive/master.zip 
              -outputs snp-pipeline-master/snppipeline/data/lambdaVirusInputs/snplist.txt 
