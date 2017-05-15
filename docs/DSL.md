@@ -516,6 +516,3 @@ Pipeline "Github" "https://github.com/Vacalexis/tools" {
 
 **Figure 2.4: Figure from Davis S, Pettengill JB, Luo Y, Payne J, Shpuntoff A, Rand H, Strain E. (2015) CFSAN SNP Pipeline: an automated method for constructing SNP matrices from next-generation sequence data. PeerJ Computer Science 1:e20 https://doi.org/10.7717/peerj-cs.20**
 
-### A pipeline using split and join tools (for executing only with Engine for Cloud)
-
-This pipeline is similar to the previous one but, instead of have the samples distributed in distinct files, they are concatenated on the same file by a separator character.
