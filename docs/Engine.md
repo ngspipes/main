@@ -429,18 +429,18 @@ To emulate the image **is required 8GB of RAM and 1 CPU**.
 
 * In order to emulate the image (**steps in  Virtual Box**), for instance, we should:
   
-  - Select the option 'New Virtual Machine'. We can choose, for instance, Debian.
-  - Select the option 'Using an existing virtual hard disk file'.
-  - Select the option create (for creating a virtual machine).
+  - Select the option ``New Virtual Machine``. We can choose, for instance, Debian.
+  - Select the option ``Using an existing virtual hard disk file``.
+  - Select the option ``Create`` (for creating a virtual machine).
   - After creating, it is necessary to configure SSH between The host system and virtual box guest.
-  - Then, add a NAT Network in Virtual Box menu, namely, Virtual Box --> Preferences.
-  - Then, add 'vboxnext0' in Virtual Box menu, namely, Virtual Box --> Preferences.
+  - Then, add a ``NAT Network`` in Virtual Box menu, namely, ``Virtual Box --> Preferences``.
+  - Then, add ``vboxnext0`` in Virtual Box menu, namely, ``Virtual Box --> Preferences``.
   - Then, select the created virtual machine and select this settings. In its settings:
-    - Check if the IO APIC is enables, namely in settings-->System;
-    - Select to attach to 'HostOnlyAdapter' the name 'vboxnet0', namely in settings-->Adapter 2
-    - Select to attach 'NAT Network' the name 'NAT Network', namely in settings-->Adapter 1
+    - Check if the ``IO APIC`` is enabled, namely in ``Settings-->System``;
+    - Select to attach to ``HostOnlyAdapter`` the name ``vboxnet0``, namely in ``Settings-->Adapter 2``
+    - Select to attach ``NAT Network`` the name ``NAT Network``, namely in ``Settings-->Adapter 1``
 
-* Launch  (Start) the created virtual machine.
+* Launch  (``Start``) the created virtual machine.
 
 * After launching the virtual machine, wait for the graphical environment and log in the desktop using the following
 credentials: 
