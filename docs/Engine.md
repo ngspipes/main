@@ -373,7 +373,7 @@ To run the **monitor (within the virtual machine that we supply for testing)** y
  
  - virtualization software which supports vmdk files, like [VMware](http://www.vmware.com/) or [VirtualBox](https://www.virtualbox.org/).
  
- - To emulate the image is required 4GB of RAM and 1 CPU
+ - To emulate the image is required 8GB of RAM and 1 CPU
 
 To run the **monitor (without the virtual machine that we supply for testing)** you will need: 
 
@@ -396,11 +396,24 @@ To run the **monitor (without the virtual machine that we supply for testing)** 
 To deploy this in your system:
  
  -  Create a new directory named Analyser and download the [executable](http://pwp.net.ipl.pt/cc.isel/cvaz/NGSPipes/ngs4cloud-analyser-1.0-SNAPSHOT.zip) to there.
+ -  After the installlation, you should have the following tree file:
+
+```
+  WorkingDirectory
+    |-- Analyser\
+       |-- ngs4cloud-analyser-1.0-SNAPSHOT\ 
+          |-- bin
+              |--ngs4cloud-analyser
+              |--ngs4cloud-analyser.bat (CUI Window run script)
+    |-- Monitor\
+       |-- monitor.jar         
+    |-- (other files,...)
+``` 
  
  
 #### Install the monitor
 
-To deploy this in your system:
+ * To deploy this in your system:
  
  -  Create a new directory named Monitor and download the [jar](http://tinyurl.com/j22n92z) to there.
 
@@ -410,11 +423,26 @@ which emulates an appropriate cluster to execute monitor.jar.**
 In a cloud environment, 
 the setting will be similar, with the corresponding credentials.
 
-Emulate the image of the cluster using a virtualization software which supports vmdk files, like 
+* Emulate the image of the cluster using a virtualization software which supports vmdk files, like 
 [VMware](http://www.vmware.com/) or [VirtualBox](https://www.virtualbox.org/). 
-To emulate the image **is required 4GB of RAM and 1 CPU**.
+To emulate the image **is required 8GB of RAM and 1 CPU**.
 
-After launching the virtual machine, wait for the graphical environment and log in the desktop using the following
+* In order to emulate the image (**steps in  Virtual Box**), for instance, we should:
+  
+  - Select the option 'New Virtual Machine'. We can choose, for instance, Debian.
+  - Select the option 'Using an existing virtual hard disk file'.
+  - Select the option create (for creating a virtual machine).
+  - After creating, it is necessary to configure SSH between The host system and virtual box guest.
+  - Then, add a NAT Network in Virtual Box menu, namely, Virtual Box --> Preferences.
+  - Then, add 'vboxnext0' in Virtual Box menu, namely, Virtual Box --> Preferences.
+  - Then, select the created virtual machine and select this settings. In its settings:
+    - Check if the IO APIC is enables, namely in settings-->System;
+    - Select to attach to 'HostOnlyAdapter' the name 'vboxnet0', namely in settings-->Adapter 2
+    - Select to attach 'NAT Network' the name 'NAT Network', namely in settings-->Adapter 1
+
+* Launch  (Start) the created virtual machine.
+
+* After launching the virtual machine, wait for the graphical environment and log in the desktop using the following
 credentials: 
 
 ```
@@ -422,21 +450,25 @@ User: ngs4cloud
 Pass: cloud123
 ```
 
-Open a terminal and type the command 
+* Open a terminal and type the command 
 
 ```
 /sbin/ifconfig
 ```
  and get the ip of Virtual Machine.
 
-Now back to the host OS. If you try to execute the monitor the following message will be shown +
+* If necessary,  you may have to configure the ip of the Virtual Machine. For example
+``sudo ifconfig eth1 1§92.168.56.2``
+
+* Now back to the host OS. If you try to execute the monitor the following message will be shown +
 
 ```
-"The environmental variable NGS4_CLOUD_MONITOR_CONFIGS 
+"The environment variable NGS4_CLOUD_MONITOR_CONFIGS 
 needs to be defined with the path of the configuration file"
 ```
+
 	
-Therefore we need to first setup the configurations so that we can execute the monitor.
+* Therefore we need to first setup the configurations so that we can execute the monitor.
 In same directory where monitor.jar is, create a file named ```configs``` and open it.
 Now write on the file the following configurations:
 
@@ -453,10 +485,46 @@ Now write on the file the following configurations:
 	P7ZIP_DOCKER_IMAGE = jnforja/7zip
 ```
 
-In the monitor directory create another directory called ```repo``` and add the following entry to the configs file:
+* An example of the ``configs.txt`` is
+
+```
+SSH_HOST = 192.168.56.2
+SSH_PORT = 22
+SSH_USER = ngs4cloud
+SSH_PASS = cloud123
+CHRONOS_HOST = 192.168.56.2
+CHRONOS_PORT = 4400
+PIPELINE_OWNER = example@example.com
+CLUSTER_SHARED_DIR_PATH = /home/ngs4cloud/pipes
+WGET_DOCKER_IMAGE = jnforja/wget
+P7ZIP_DOCKER_IMAGE = jnforja/7zip
+```
+
+* After defining the ``config.txt`` file, it is necessary to set the environment variable.
+
+* For instance, in MAC OS, for setting the environment variable is to open a terminal in the current
+ Monitor directory and then do ``export NGS4_CLOUD_MONITOR_CONFIGS=configs.txt`` if ``config.txt``is also
+ in the Monitor directory.
+
+* In the monitor directory create another directory called ```repo``` and add the following entry to the configs file:
 
 ```
 EXECUTION_TRACKER_REPO_PATH = "The repo directory path"
+```
+* As an example, ``configs``file should look like:
+
+```
+SSH_HOST = 192.168.56.2
+SSH_PORT = 22
+SSH_USER = ngs4cloud
+SSH_PASS = cloud123
+CHRONOS_HOST = 192.168.56.2
+CHRONOS_PORT = 4400
+PIPELINE_OWNER = example@example.com
+CLUSTER_SHARED_DIR_PATH = /home/ngs4cloud/pipes
+WGET_DOCKER_IMAGE = jnforja/wget
+P7ZIP_DOCKER_IMAGE = jnforja/7zip
+EXECUTION_TRACKER_REPO_PATH = /Users/cvaz/Documents/pipelines/Monitor/repo
 ```
 
 Save the ```configs``` file and close it.
@@ -491,7 +559,6 @@ This file must be a ```.pipes``` extension file, where the pipeline is written u
 -  This file will be given as input to the 
 monitor tool.
 - ```-input``` The URI with the location of the inputs for the pipeline.
-
 - ```-outputs``` $space_separated_list_of_outputs.
 
 
@@ -508,7 +575,7 @@ Here is an example:
 ```
 
 This will analyse and process the file ```-pipes```, store the IR in the file ```-ir```, set the input and 
-outputs for ```-ir and ```-output```.
+outputs for ```-ir``` and ```-output```.
 
 To execute the pipeline on a simulated environment, see subsection . . .
 
