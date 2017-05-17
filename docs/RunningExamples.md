@@ -288,41 +288,41 @@ In this section we present a pipeline used on ChiP-Seq analysis. This
 
 ```
 Pipeline "Github" "https://github.com/ngspipes/tools" {
-	tool "Bowtie2" "DockerConfig" {
-		command "bowtie2-build" {
-			argument "reference_in" "sequence.fasta"
-			argument "bt2_base" "sequence"
-		}
-	}
-	tool "Bowtie2" "DockerConfig" {
-		command "bowtie2" {
-			argument "-U" "SRR386886.fastq"
-			argument "-x" "sequence"
-			argument "--trim3" "1"
-			argument "-S" "eg2.sam"
-		}
-	}
-	tool "SAMTools" "DockerConfig" {
-		command "view" {
-			argument "-b" "-b"
-			argument "-o" "eg2.bam"
-			chain "input" "-S"
-		}
-	}
-	tool "SAMTools" "DockerConfig" {
-		command "sort" {
-			argument "-o" "eg2.sorted.bam"
-			chain "input" "-o"
-		}
-	}
-	tool "Picard" "DockerConfig" {
-		command "MarkDuplicates" {
-			chain "INPUT" "-o"
-			argument "OUTPUT" "marked_duplicates.bam"
-			argument "REMOVE_DUPLICATES" "true"
-			argument "METRICS_FILE" "metrics.txt"
-		}
-	}
+    tool "Bowtie2" "DockerConfig" {
+        command "bowtie2-build" {
+            argument "reference_in" "study2/sequence.fasta"
+            argument "bt2_base" "sequence"
+        }
+    }
+    tool "Bowtie2" "DockerConfig" {
+        command "bowtie2" {
+            argument "-U" "study2/SRR386886.fastq"
+            argument "-x" "sequence"
+            argument "--trim3" "1"
+            argument "-S" "eg2.sam"
+        }
+    }
+    tool "Samtools" "DockerConfig" {
+        command "view" {
+            argument "-b" "NA"
+            argument "-o" "eg2.bam"
+            chain "input" "-S"
+        }
+    }
+    tool "Samtools" "DockerConfig" {
+        command "sort" {
+            argument "-o" "eg2.sorted.bam"
+            chain "input" "-o"
+        }
+    }
+    tool "Picard" "DockerConfig" {
+        command "MarkDuplicates" {
+            chain "INPUT" "-o"
+            argument "OUTPUT" "marked_duplicates.bam"
+            argument "REMOVE_DUPLICATES" "true"
+            argument "METRICS_FILE" "metrics.txt"
+        }
+    }
 }
 ```
 **Example 6.2: A pipeline used on ChiP-Seq analysis.**
@@ -335,7 +335,83 @@ A visual representation of this pipeline is presented in the next figure.
 
 ### Running this example in Engine for workstation
 
+Similar to the prevous example.
+
+
 ### Running this example in Engine for Cloud
+
+It is similar to the previous example.
+
+**Note** Please, be sure that the Engine for Cloud is already installed. For this, follow the steps that are in section:
+
+``Engine->Engine for Cloud-> Install engine for cloud.``
+
+After the installlation, you should have the following tree file:
+
+```
+  WorkingDirectory
+    |-- Analyser\
+       |-- ngs4cloud-analyser-1.0-SNAPSHOT\ 
+          |-- bin
+              |--ngs4cloud-analyser
+              |--ngs4cloud-analyser.bat (CUI Window run script)
+    |-- Monitor\
+       |-- monitor.jar         
+    |-- (other files,...)
+```
+* **Input data is available [here](https://www.dropbox.com/s/filps3qavvhjta7/study2.zip?dl=0).**, but is not necessary to download. Input data in Engine for Cloud engine is always passed as an URI.
+
+* Create a file  ```casestudy2.pipes```(```.pipes```is the extension containing the pipeline previously described in Figure 6.2. Assume that, on the following,
+```casestudy2.pipes``` is inside the directory ```ngs4cloud-analyser-1.0-SNAPSHOT```.
+
+* Start by execution the analyser tool, in order to produce an file with ```json```extension. 
+
+##### OSX/Linux
+```
+ngs@server:ngs4cloud-analyser-1.0-SNAPSHOT$ ./bin/ngs4cloud-analyser analyse 
+          -pipes casestudy2.pipes 
+          -ir ir2.json 
+          -input https://www.dropbox.com/s/filps3qavvhjta7/study2.zip?dl=0 
+          -outputs metrics.txt
+```
+* This execution will produce the file ```ir2.json```.
+
+* Then, copy the ```ir2.json``` inside to directory ```Monitor```
+
+* Before executing the Monitor, please assure that the Virtual Machine with the cluster image given for test purposes is lauched and correctly settled (please, see the section 
+
+```
+Engine->Engine for cloud->
+    Install the engine for cloud -> Install the monitor
+```
+* Launch the pipeline into the cluster through the monitor command
+
+```
+ngs@server:Monitor$ java -jar monitor.jar launch ir2.json
+```
+* The previous command with generate a pipeline ```id```. Assume in this example that the id is 2.
+
+* Consult the status of the pipeline by its id
+
+```
+ngs@server:Monitor$ java -jar monitor.jar status 2
+```
+
+* After pipeline is finished, it is possible to download its results from the cluster to a previously defined directory inside the ```Monitor```directory. 
+
+```
+ngs@server:Monitor$ java -jar monitor.jar outputs 2 resultsDirectory
+```
+ 
+* ```resultsDirectory``` is the directory that contains a copy of the outputs that where previously specified by the analyser that should be copied; ```2``` is the pipeline ```ìd```
+
+For more information about the `analyser`  and `monitor` commands and its parameters, please see section
+
+```
+Engine->Engine for cloud->Run the engine for cloud 
+```
+
+
 
 ## A pipeline using listing tools 
 
