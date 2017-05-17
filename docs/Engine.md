@@ -561,6 +561,7 @@ monitor tool.
 - ```-input``` The URI with the location of the inputs for the pipeline.
 - ```-outputs``` $space_separated_list_of_outputs.
 
+In this current version of the Analyser tool, the input must always be an URI. And since usually we have more than one input for each pipeline, the same can be zipped. If the input is not an URI already, we can create a shared link in dropbox, for instance, and use that URI.
 
 **Example**
 

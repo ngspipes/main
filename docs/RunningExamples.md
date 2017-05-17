@@ -79,7 +79,7 @@ In the engine for cloud, different steps of the pipeline can be  executed in dif
 
 **Figure 6.2: Visual representation of the execution, in the engine for cloud, of the pipeline described in Example 6.1.**
 
-**Input data is available [here](https://www.dropbox.com/s/h8e8t3prt9f0gq3/study1.zip?dl=0).**
+**Input data is available [here](https://www.dropbox.com/s/h8e8t3prt9f0gq3/study1.zip?dl=0)**
 
 ### Running this example in Engine for workstation
 
@@ -215,6 +215,15 @@ home/ngspipes/outputs
 
 ``Engine->Engine for Cloud-> Install engine for cloud.``
 
+If previously installed, please ensure that:
+
+ * the ip of the Virtual machine is configure 
+ * the environment varible is stablished on the terminal that you are executing the monitor. 
+ For managing these setting, please also consult the section:
+ 
+ ``Engine->Engine for Cloud-> Install engine for cloud.``
+
+
 After the installlation, you should have the following tree file:
 
 ```
@@ -228,7 +237,7 @@ After the installlation, you should have the following tree file:
        |-- monitor.jar         
     |-- (other files,...)
 ```
-* **Input data is available [here](https://www.dropbox.com/s/h8e8t3prt9f0gq3/study1.zip?dl=0).**, but is not necessary to download. Input data in Engine for Cloud engine is always passed as an URI.
+* **Input data is available [here](https://www.dropbox.com/s/h8e8t3prt9f0gq3/study1.zip?dl=0)**, but is not necessary to download. Input data in Engine for Cloud engine is always passed as an URI.
 
 * Create a file  ```casestudy1.pipes```(```.pipes```is the extension containing the pipeline previously described in Figure 6.1. Assume that, on the following,
 ```casestudy1.pipes``` is inside the directory ```ngs4cloud-analyser-1.0-SNAPSHOT```.
@@ -346,7 +355,15 @@ It is similar to the previous example.
 
 ``Engine->Engine for Cloud-> Install engine for cloud.``
 
-After the installlation, you should have the following tree file:
+If previously installed, please ensure that:
+
+ * the ip of the Virtual machine is configure 
+ * the environment varible is stablished on the terminal that you are executing the monitor. 
+ For managing these setting, please also consult the section:
+ 
+ ``Engine->Engine for Cloud-> Install engine for cloud.``
+ 
+After the installation, you should have the following tree file:
 
 ```
   WorkingDirectory
