@@ -16,6 +16,6 @@ Welcome to NGSPipes' documentation!
    ToolsRepository.md
    Editor.md
    Engine.md
-   Examples.md
+   RunningExamples.md
 
 
