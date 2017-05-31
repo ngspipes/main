@@ -363,7 +363,7 @@ Next figure describes the main components of this engine and their interactions.
 
 ### Requirements to run the engine for cloud
 
-To run the **[analyser tool](http://tinyurl.com/h48zskc)**  you will need:
+To run the analyser tool  you will need:
 
  - to have installed  [JRE 8](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html).
  

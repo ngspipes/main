@@ -108,7 +108,7 @@ Since the engine for workstation is provided as a console application or a graph
     |-- (other files, ...)
 
 ```
-* Download the data available [here](https://www.dropbox.com/s/h8e8t3prt9f0gq3/study1.zip?dl=0) 
+* Download the data available [here](https://www.dropbox.com/s/h8e8t3prt9f0gq3/study1.zip?dl=0) 
 
 * After unzipping, the directory content look like, for instance,
 
@@ -217,14 +217,14 @@ home/ngspipes/outputs
 
 If previously installed, please ensure that:
 
- * the ip of the Virtual machine is configure 
- * the environment varible is stablished on the terminal that you are executing the monitor. 
- For managing these setting, please also consult the section:
+ * the ip of the virtual machine is configured 
+ * the environment variable is stablished on the terminal that you are executing the monitor. 
+ For managing these settings, please also consult the section:
  
  ``Engine->Engine for Cloud-> Install engine for cloud.``
 
 
-After the installlation, you should have the following tree file:
+After the installation, you should have the following tree file:
 
 ```
   WorkingDirectory
@@ -237,7 +237,7 @@ After the installlation, you should have the following tree file:
        |-- monitor.jar         
     |-- (other files,...)
 ```
-* **Input data is available [here](https://www.dropbox.com/s/h8e8t3prt9f0gq3/study1.zip?dl=0)**, but is not necessary to download. Input data in Engine for Cloud engine is always passed as an URI.
+* **Input data is available [here](https://www.dropbox.com/s/h8e8t3prt9f0gq3/study1.zip?dl=0)**, but is not necessary to download. Input data in Engine for Cloud engine is always passed as an URI.
 
 * Create a file  ```casestudy1.pipes```(```.pipes```is the extension containing the pipeline previously described in Figure 6.1. Assume that, on the following,
 ```casestudy1.pipes``` is inside the directory ```ngs4cloud-analyser-1.0-SNAPSHOT```.
@@ -357,9 +357,9 @@ It is similar to the previous example.
 
 If previously installed, please ensure that:
 
- * the ip of the Virtual machine is configure 
- * the environment varible is stablished on the terminal that you are executing the monitor. 
- For managing these setting, please also consult the section:
+ * the ip of the virtual machine is configured 
+ * the environment variable is stablished on the terminal that you are executing the monitor. 
+ For managing these settings, please also consult the section:
  
  ``Engine->Engine for Cloud-> Install engine for cloud.``
  
@@ -376,7 +376,7 @@ After the installation, you should have the following tree file:
        |-- monitor.jar         
     |-- (other files,...)
 ```
-* **Input data is available [here](https://www.dropbox.com/s/filps3qavvhjta7/study2.zip?dl=0).**, but is not necessary to download. Input data in Engine for Cloud engine is always passed as an URI.
+* **Input data is available [here](https://www.dropbox.com/s/filps3qavvhjta7/study2.zip?dl=0)**, but is not necessary to download. Input data in Engine for Cloud engine is always passed as an URI.
 
 * Create a file  ```casestudy2.pipes```(```.pipes```is the extension containing the pipeline previously described in Figure 6.2. Assume that, on the following,
 ```casestudy2.pipes``` is inside the directory ```ngs4cloud-analyser-1.0-SNAPSHOT```.
@@ -417,7 +417,7 @@ ngs@server:Monitor$ java -jar monitor.jar status 2
 * After pipeline is finished, it is possible to download its results from the cluster to a previously defined directory inside the ```Monitor```directory. 
 
 ```
-ngs@server:Monitor$ java -jar monitor.jar outputs 2 resultsDirectory
+ngs@server:Monitor$ java -jar monitor.jar outputs 2 resultsDirectory2
 ```
  
 * ```resultsDirectory``` is the directory that contains a copy of the outputs that where previously specified by the analyser that should be copied; ```2``` is the pipeline ```ìd```
@@ -575,6 +575,89 @@ Pipeline "Github" "https://github.com/Vacalexis/tools" {
 **Figure 6.3: Figure from Davis S, Pettengill JB, Luo Y, Payne J, Shpuntoff A, Rand H, Strain E. (2015) CFSAN SNP Pipeline: an automated method for constructing SNP matrices from next-generation sequence data. PeerJ Computer Science 1:e20 https://doi.org/10.7717/peerj-cs.20**
 
 ### Running this example in Engine for Cloud
+
+It is similar to the previous example. **Note that this tool types are only avaiable for running in the Engine for Cloud.**
+
+**Note** Please, be sure that the Engine for Cloud is already installed. For this, follow the steps that are in section:
+
+``Engine->Engine for Cloud-> Install engine for cloud.``
+
+If previously installed, please ensure that:
+
+ * the ip of the virtual machine is configured 
+ * the environment variable is stablished on the terminal that you are executing the monitor. 
+ For managing these settings, please also consult the section:
+ 
+ ``Engine->Engine for Cloud-> Install engine for cloud.``
+ 
+After the installation, you should have the following tree file:
+
+```
+  WorkingDirectory
+    |-- Analyser\
+       |-- ngs4cloud-analyser-1.0-SNAPSHOT\ 
+          |-- bin
+              |--ngs4cloud-analyser
+              |--ngs4cloud-analyser.bat (CUI Window run script)
+    |-- Monitor\
+       |-- monitor.jar         
+    |-- (other files,...)
+```
+* **Input data is available [here](https://github.com/CFSAN-Biostatistics/snp-pipeline/archive/master.zip)**, but is not necessary to download. Input data in Engine for Cloud engine is always passed as an URI.
+
+* Create a file  ```casestudy3.pipes```(```.pipes```is the extension containing the pipeline previously described in Figure 6.3. Assume that, on the following,
+```casestudy3.pipes``` is inside the directory ```ngs4cloud-analyser-1.0-SNAPSHOT```.
+
+* Start by execution the analyser tool, in order to produce an file with ```json```extension. 
+
+##### OSX/Linux
+```
+ngs@server:ngs4cloud-analyser-1.0-SNAPSHOT$ ./bin/ngs4cloud-analyser analyse 
+          -pipes casestudy3.pipes 
+          -ir ir3.json 
+          -input https://github.com/CFSAN-Biostatistics/snp-pipeline/archive/master.zip
+          -outputs snp-pipeline-master/snppipeline/data/lambdaVirusInputs/snplist.txt snp-pipeline-master/snppipeline/data/lambdaVirusInputs/snpma.fasta
+```
+* This execution will produce the file ```ir3.json```.
+
+* Then, copy the ```ir3.json``` inside to directory ```Monitor```
+
+* Before executing the Monitor, please assure that the Virtual Machine with the cluster image given for test purposes is lauched and correctly settled (please, see the section 
+
+```
+Engine->Engine for cloud->
+    Install the engine for cloud -> Install the monitor
+```
+* Launch the pipeline into the cluster through the monitor command
+
+```
+ngs@server:Monitor$ java -jar monitor.jar launch ir3.json
+```
+* The previous command with generate a pipeline ```id```. Assume in this example that the id is 3.
+
+* Consult the status of the pipeline by its id
+
+```
+ngs@server:Monitor$ java -jar monitor.jar status 3
+```
+
+* After pipeline is finished, it is possible to download its results from the cluster to a previously defined directory inside the ```Monitor```directory. 
+
+```
+ngs@server:Monitor$ java -jar monitor.jar outputs 3 resultsDirectory3
+```
+ 
+* ```resultsDirectory``` is the directory that contains a copy of the outputs that where previously specified by the analyser that should be copied; ```3``` is the pipeline ```ìd```
+
+For more information about the `analyser`  and `monitor` commands and its parameters, please see section
+
+```
+Engine->Engine for cloud->Run the engine for cloud 
+```
+
+
+
+
 
 [//]: # ( ##A pipeline using split and join tools (for executing only with Engine for Cloud) )
 
